@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 
 import '/custom_article_card.dart';
 
+typedef ChangePage<int> = void Function(int value);
+
 class HomeBarPage extends StatefulWidget {
   const HomeBarPage({Key? key, required this.onActionTap}) : super(key: key);
 
-  final Function(int) onActionTap;
+  final ChangePage<int> onActionTap;
 
   @override
   _HomeBarPageState createState() => _HomeBarPageState();
