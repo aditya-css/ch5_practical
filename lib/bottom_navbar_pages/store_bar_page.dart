@@ -24,11 +24,11 @@ class StoreBarPage extends StatelessWidget {
   static const List<Text> _tabs = <Text>[
     Text(
       'Android',
-      style: TextStyle(fontSize: 18),
+      style: TextStyle(fontSize: 18, height: 4),
     ),
     Text(
       'iOS',
-      style: TextStyle(fontSize: 18),
+      style: TextStyle(fontSize: 18, height: 4),
     ),
   ];
 
@@ -49,7 +49,7 @@ class StoreBarPage extends StatelessWidget {
           flexibleSpace: const Align(
             alignment: Alignment.bottomCenter,
             child: TabBar(
-              indicatorWeight: 3.5,
+              indicatorWeight: 4.0,
               indicatorColor: Colors.lightBlueAccent,
               tabs: _tabs,
             ),

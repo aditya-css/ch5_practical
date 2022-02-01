@@ -1,11 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '/custom_article_card.dart';
 
 class HomeBarPage extends StatefulWidget {
-  const HomeBarPage({Key? key}) : super(key: key);
+  const HomeBarPage({Key? key, required this.onActionTap}) : super(key: key);
+
+  final Function(int) onActionTap;
 
   @override
   _HomeBarPageState createState() => _HomeBarPageState();
@@ -14,8 +17,12 @@ class HomeBarPage extends StatefulWidget {
 class _HomeBarPageState extends State<HomeBarPage> {
   //Getters
   String get _title => 'Best Folk Medicine';
+
   String get _categoryJsonSrc => 'assets/dummy_data/categories.json';
+
   String get _articleJsonSrc => 'assets/dummy_data/articles.json';
+
+  int get _secondPageIndex => 1;
 
   Future<Map<String, dynamic>> loadJsonData(
       BuildContext context, String source) async {
@@ -30,52 +37,62 @@ class _HomeBarPageState extends State<HomeBarPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  _title,
-                  style: const TextStyle(
-                    fontSize: 32,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Material(
-                  elevation: 20,
-                  shadowColor: Colors.grey.shade50,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search_rounded,
-                        color: Colors.grey.shade300,
-                        size: 30,
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      _title,
+                      style: const TextStyle(
+                        fontSize: 32,
+                        fontStyle: FontStyle.italic,
                       ),
-                      hintText: 'Search',
-                      hintStyle: TextStyle(color: Colors.grey.shade500),
-                      border: InputBorder.none,
                     ),
                   ),
-                ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Material(
+                      elevation: 20,
+                      shadowColor: Colors.grey.shade50,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search_rounded,
+                            color: Colors.grey.shade300,
+                            size: 30,
+                          ),
+                          hintText: 'Search',
+                          hintStyle: TextStyle(color: Colors.grey.shade500),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30.0),
+                  FutureBuilder(
+                    future: loadJsonData(context, _categoryJsonSrc),
+                    builder: _buildCategoryCardsFuture,
+                  ),
+                  FutureBuilder(
+                    future: loadJsonData(context, _articleJsonSrc),
+                    builder: _buildArticleCardsFuture,
+                  ),
+                ],
               ),
-              const SizedBox(height: 30.0),
-              FutureBuilder(
-                future: loadJsonData(context, _categoryJsonSrc),
-                builder: _buildCategoryCardsFuture,
+            ),
+            Positioned(
+              bottom: 15,
+              right: 15,
+              child: FloatingActionButton(
+                onPressed: () => widget.onActionTap(_secondPageIndex),
+                child: const Icon(CupertinoIcons.cart_fill),
+                tooltip: 'Store',
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: FutureBuilder(
-                  future: loadJsonData(context, _articleJsonSrc),
-                  builder: _buildArticleCardsFuture,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -118,10 +135,7 @@ class _HomeBarPageState extends State<HomeBarPage> {
         ),
       );
     } else if (snapshot.hasError) {
-      _child = Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: _buildErrorCard(),
-      );
+      _child = SizedBox(height: 100, child: _buildErrorCard());
     } else {
       _child = const Center(child: CircularProgressIndicator());
     }
@@ -133,94 +147,98 @@ Widget _buildArticleCardsFuture(
     BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
   late Widget _child;
   if (snapshot.hasData) {
-    _child = Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Main Articles',
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-              Text(
-                'See more',
-                style: TextStyle(color: Colors.grey.shade500),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 290.0,
-          child: ArticleCard(
-            data: snapshot.data!['main_articles'],
-            align: CardAlign.vertical,
-            imgHeight: 150,
-            imgWidth: 250,
-            boxWidth: 240,
-            elevation: 15,
-            shadowColor: Colors.grey.shade200,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'You have not finished reading',
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-              Text(
-                'See more',
-                style: TextStyle(
-                  color: Colors.grey.shade500,
+    _child = Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Main Articles',
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 400.0,
-          child: ArticleCard(
-            data: snapshot.data!['half_articles'],
-            align: CardAlign.horizontal,
-            imgHeight: 110,
-            imgWidth: 150,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Last articles',
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-              Text(
-                'See more',
-                style: TextStyle(
-                  color: Colors.grey.shade500,
+                Text(
+                  'See more',
+                  style: TextStyle(color: Colors.grey.shade500),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        SizedBox(
-          height: 600.0,
-          child: ArticleCard(
-            data: snapshot.data!['last_articles'],
-            align: CardAlign.matrix,
-            imgWidth: 200,
-            imgHeight: 120,
+          SizedBox(
+            height: 290.0,
+            child: ArticleCard(
+              data: snapshot.data!['main_articles'],
+              align: CardAlign.vertical,
+              imgHeight: 150,
+              imgWidth: 250,
+              boxWidth: 240,
+              elevation: 15,
+              shadowColor: Colors.grey.shade200,
+            ),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'You have not finished reading',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(
+                  'See more',
+                  style: TextStyle(
+                    color: Colors.grey.shade500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 400.0,
+            child: ArticleCard(
+              data: snapshot.data!['half_articles'],
+              align: CardAlign.horizontal,
+              imgHeight: 110,
+              imgWidth: 150,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Last articles',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(
+                  'See more',
+                  style: TextStyle(
+                    color: Colors.grey.shade500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 600.0,
+            child: ArticleCard(
+              data: snapshot.data!['last_articles'],
+              align: CardAlign.matrix,
+              imgWidth: 200,
+              imgHeight: 120,
+            ),
+          ),
+        ],
+      ),
     );
   } else if (snapshot.hasError) {
-    _child = _buildErrorCard();
+    _child = SizedBox(
+        height: MediaQuery.of(context).size.height, child: _buildErrorCard());
   } else {
     _child = const Padding(
       padding: EdgeInsets.only(top: 28.0),
@@ -230,36 +248,38 @@ Widget _buildArticleCardsFuture(
   return _child;
 }
 
-Container _buildErrorCard() {
-  return Container(
-    height: 100,
-    color: Colors.red,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              'ERROR',
-              style: TextStyle(
-                color: Colors.amber,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Courier',
+Widget _buildErrorCard() {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Container(
+      color: Colors.red,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(
+                'ERROR',
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Courier',
+                ),
               ),
-            ),
-            Icon(Icons.info, color: Colors.amber),
-          ],
-        ),
-        const Text(
-          'Failed to retrieve data!',
-          style: TextStyle(
-            color: Colors.yellow,
-            fontSize: 14,
+              Icon(Icons.info, color: Colors.amber),
+            ],
           ),
-        ),
-      ],
+          const Text(
+            'Failed to retrieve data!',
+            style: TextStyle(
+              color: Colors.yellow,
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
