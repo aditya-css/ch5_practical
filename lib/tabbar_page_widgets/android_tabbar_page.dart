@@ -48,11 +48,13 @@ class AndroidTabBarPage extends StatelessWidget {
       default:
         _selectedOption = 'Nothing Selected';
     }
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(_selectedOption),
-      ),
-    );
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(_selectedOption),
+        ),
+      );
   }
 
   Future<void> _buildAlertDialog(BuildContext context) async {

@@ -69,7 +69,9 @@ class IOSTabBarPage extends StatelessWidget {
       default:
         _selectedOption = 'Nothing Selected';
     }
-    ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(
       SnackBar(
         content: Text(_selectedOption),
       ),

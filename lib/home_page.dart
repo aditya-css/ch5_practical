@@ -1,7 +1,7 @@
+import 'package:ch5_practical/bottom_navbar_pages/favourite_bar_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bottom_navbar_pages/favourite_bar_page.dart';
 import 'bottom_navbar_pages/home_bar_page.dart';
 import 'bottom_navbar_pages/settings_bar_page.dart';
 import 'bottom_navbar_pages/store_bar_page.dart';
@@ -14,15 +14,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int get _secondPageIndex => 1;
   int _selectedIndex = 0;
 
-  static const List<Widget> _bottomNavBarPages = <Widget>[
-    HomeBarPage(),
-    StoreBarPage(),
-    FavouriteBarPage(),
-    SettingsBarPage(),
-  ];
+  late final List<Widget> _bottomNavBarPages;
 
   static const List<BottomNavigationBarItem> _bottomNavBarItems =
       <BottomNavigationBarItem>[
@@ -49,13 +43,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void initState() {
+    _bottomNavBarPages = <Widget>[
+      HomeBarPage(onActionTap: _onItemTapped),
+      const StoreBarPage(),
+      const FavouriteBarPage(),
+      const SettingsBarPage(),
+    ];
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: _bottomNavBarPages.elementAt(_selectedIndex),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _onItemTapped(_secondPageIndex),
-        child: const Icon(CupertinoIcons.cart_fill),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _bottomNavBarPages,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

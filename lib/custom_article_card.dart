@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 enum CardAlign { vertical, horizontal, matrix }
 
@@ -20,9 +21,26 @@ class ArticleCard extends StatelessWidget {
   final CardAlign align;
   final Color? shadowColor;
 
+  String timeAgo(String date) {
+    DateTime _formattedDate = DateFormat("dd-MM-yyyy").parse(date);
+    Duration _diff = DateTime.now().difference(_formattedDate);
+    if (_diff.inDays > 365) {
+      return "${(_diff.inDays / 365).floor()} ${(_diff.inDays / 365).floor() == 1 ? "year" : "years"} ago";
+    }
+    if (_diff.inDays > 30) {
+      return "${(_diff.inDays / 30).floor()} ${(_diff.inDays / 30).floor() == 1 ? "month" : "months"} ago";
+    }
+    if (_diff.inDays > 7) {
+      return "${(_diff.inDays / 7).floor()} ${(_diff.inDays / 7).floor() == 1 ? "week" : "weeks"} ago";
+    }
+    if (_diff.inDays > 0) {
+      return "${_diff.inDays} ${_diff.inDays == 1 ? "day" : "days"} ago";
+    }
+    return "just now";
+  }
+
   @override
   Widget build(BuildContext context) {
-    //TODO: Implement error card for all sizes
     switch (align) {
       case CardAlign.vertical:
         return _buildVerticalCard();
@@ -63,7 +81,7 @@ class ArticleCard extends StatelessWidget {
                         style: const TextStyle(fontSize: 14),
                       ),
                       Text(
-                        data[index]['published_date'],
+                        timeAgo(data[index]['published_date']),
                         style: TextStyle(
                           color: Colors.grey.shade500,
                           fontSize: 14,
@@ -127,7 +145,7 @@ class ArticleCard extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4.0),
                         child: Text(
-                          data[index]['published_date'],
+                          timeAgo(data[index]['published_date']),
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ),
@@ -175,7 +193,7 @@ class ArticleCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
-                data[index]['published_date'],
+                timeAgo(data[index]['published_date']),
                 style: Theme.of(context).textTheme.caption,
               ),
             ),
