@@ -1,7 +1,7 @@
+import 'package:ch5_practical/bottom_navbar_pages/favourite_bar_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bottom_navbar_pages/favourite_bar_page.dart';
 import 'bottom_navbar_pages/home_bar_page.dart';
 import 'bottom_navbar_pages/settings_bar_page.dart';
 import 'bottom_navbar_pages/store_bar_page.dart';
@@ -57,7 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: _bottomNavBarPages.elementAt(_selectedIndex),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _bottomNavBarPages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

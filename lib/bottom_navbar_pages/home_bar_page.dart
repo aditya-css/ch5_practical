@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ch5_practical/custom_loading_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -136,10 +137,8 @@ class _HomeBarPageState extends State<HomeBarPage> {
           children: _catCards,
         ),
       );
-    } else if (snapshot.hasError) {
-      _child = SizedBox(height: 100, child: _buildErrorCard());
     } else {
-      _child = const Center(child: CircularProgressIndicator());
+      _child = const SizedBox.shrink();
     }
     return _child;
   }
@@ -240,48 +239,45 @@ Widget _buildArticleCardsFuture(
     );
   } else if (snapshot.hasError) {
     _child = SizedBox(
-        height: MediaQuery.of(context).size.height, child: _buildErrorCard());
-  } else {
-    _child = const Padding(
-      padding: EdgeInsets.only(top: 28.0),
-      child: Center(child: CircularProgressIndicator()),
+      height: MediaQuery.of(context).size.height * 0.65,
+      child: _buildErrorCard(),
     );
+  } else {
+    _child = const LoadingPage();
   }
   return _child;
 }
 
 Widget _buildErrorCard() {
-  return Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: Container(
-      color: Colors.red,
-      child: Column(
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
-                'ERROR',
-                style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Courier',
-                ),
-              ),
-              Icon(Icons.info, color: Colors.amber),
-            ],
-          ),
-          const Text(
-            'Failed to retrieve data!',
+        children: const [
+          Text(
+            'SORRY',
             style: TextStyle(
-              color: Colors.yellow,
-              fontSize: 14,
+              color: Colors.black12,
+              fontSize: 48,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Courier',
             ),
+          ),
+          Icon(
+            Icons.info,
+            color: Colors.black12,
+            size: 32,
           ),
         ],
       ),
-    ),
+      const Text(
+        'Failed to retrieve data.',
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: 16,
+        ),
+      ),
+    ],
   );
 }
