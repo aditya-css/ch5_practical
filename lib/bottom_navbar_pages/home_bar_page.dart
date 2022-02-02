@@ -244,7 +244,6 @@ Widget _buildArticleCardsFuture(
       height: MediaQuery.of(context).size.height * 0.65,
       child: _buildErrorCard(),
     );
-    _child = const LoadingPage();
   } else {
     _child = const LoadingPage();
   }
