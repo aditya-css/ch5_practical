@@ -1,13 +1,15 @@
-import 'package:ch5_practical/bottom_navbar_pages/favourite_bar_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'bottom_navbar_pages/home_bar_page.dart';
-import 'bottom_navbar_pages/settings_bar_page.dart';
-import 'bottom_navbar_pages/store_bar_page.dart';
+import '/bottom_navbar_pages/favourite_bar_page.dart';
+import '/bottom_navbar_pages/home_bar_page.dart';
+import '/bottom_navbar_pages/settings_bar_page.dart';
+import '/bottom_navbar_pages/store_bar_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
+
+  static const String routeName = '/';
 
   @override
   _MyHomePageState createState() => _MyHomePageState();

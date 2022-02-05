@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '/bottom_navbar_pages/store_bar_page.dart';
+import '../utilities.dart';
 
 class IOSTabBarPage extends StatelessWidget {
   const IOSTabBarPage({Key? key}) : super(key: key);
@@ -9,7 +9,7 @@ class IOSTabBarPage extends StatelessWidget {
   Future<void> _buildAlertDialog(BuildContext context) async {
     return showCupertinoDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
           title: const Text('AlertDialog Title'),
@@ -72,10 +72,10 @@ class IOSTabBarPage extends StatelessWidget {
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(
-      SnackBar(
-        content: Text(_selectedOption),
-      ),
-    );
+        SnackBar(
+          content: Text(_selectedOption),
+        ),
+      );
   }
 
   @override

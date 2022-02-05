@@ -3,23 +3,8 @@ import 'package:flutter/material.dart';
 import '../tabbar_page_widgets/android_tabbar_page.dart';
 import '../tabbar_page_widgets/ios_tabbar_page.dart';
 
-enum SampleDialogOptions { option1, option2 }
-
-extension SimpleDialogOptionsExtension on SampleDialogOptions {
-  String get value {
-    switch (this) {
-      case SampleDialogOptions.option1:
-        return 'Sample Option 1';
-      case SampleDialogOptions.option2:
-        return 'Sample Option 2';
-    }
-  }
-}
-
 class StoreBarPage extends StatelessWidget {
   const StoreBarPage({Key? key}) : super(key: key);
-
-  int get _startIndex => 0;
 
   static const List<Text> _tabs = <Text>[
     Text(
@@ -40,17 +25,16 @@ class StoreBarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: _startIndex,
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
           automaticallyImplyLeading: false,
-          flexibleSpace: const Align(
+          flexibleSpace: Align(
             alignment: Alignment.bottomCenter,
             child: TabBar(
               indicatorWeight: 4.0,
-              indicatorColor: Colors.lightBlueAccent,
+              indicatorColor: Theme.of(context).colorScheme.secondary,
               tabs: _tabs,
             ),
           ),

@@ -1,12 +1,10 @@
-import 'dart:convert';
-
-import 'package:ch5_practical/custom_loading_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '/custom_article_card.dart';
-
-typedef ChangePage<int> = void Function(int value);
+import '../article_pages/custom_article_card.dart';
+import '../custom_error_card.dart';
+import '../loading_page.dart';
+import '../utilities.dart';
 
 class HomeBarPage extends StatefulWidget {
   const HomeBarPage({Key? key, required this.onActionTap}) : super(key: key);
@@ -18,22 +16,7 @@ class HomeBarPage extends StatefulWidget {
 }
 
 class _HomeBarPageState extends State<HomeBarPage> {
-  //Getters
   String get _title => 'Best Folk Medicine';
-
-  String get _categoryJsonSrc => 'assets/dummy_data/categories.json';
-
-  String get _articleJsonSrc => 'assets/dummy_data/articles.json';
-
-  int get _secondPageIndex => 1;
-
-  Future<Map<String, dynamic>> loadJsonData(
-      BuildContext context, String source) async {
-    late Map<String, dynamic> _jsonResult;
-    String _jsonText = await DefaultAssetBundle.of(context).loadString(source);
-    _jsonResult = json.decode(_jsonText);
-    return _jsonResult;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,12 +58,12 @@ class _HomeBarPageState extends State<HomeBarPage> {
                     ),
                   ),
                   const SizedBox(height: 30.0),
-                  FutureBuilder(
-                    future: loadJsonData(context, _categoryJsonSrc),
+                  FutureBuilder<JsonData>(
+                    future: loadJsonData(context, categoryJsonSrc),
                     builder: _buildCategoryCardsFuture,
                   ),
-                  FutureBuilder(
-                    future: loadJsonData(context, _articleJsonSrc),
+                  FutureBuilder<JsonData>(
+                    future: loadJsonData(context, articleJsonSrc),
                     builder: _buildArticleCardsFuture,
                   ),
                 ],
@@ -91,7 +74,7 @@ class _HomeBarPageState extends State<HomeBarPage> {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
-                  onPressed: () => widget.onActionTap(_secondPageIndex),
+                  onPressed: () => widget.onActionTap(storeIndex),
                   child: const Icon(CupertinoIcons.cart_fill),
                   tooltip: 'Store',
                 ),
@@ -104,7 +87,7 @@ class _HomeBarPageState extends State<HomeBarPage> {
   }
 
   Widget _buildCategoryCardsFuture(
-      BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+      BuildContext context, AsyncSnapshot<JsonData> snapshot) {
     late Widget _child;
     if (snapshot.hasData) {
       List<Container> _catCards = [];
@@ -147,7 +130,7 @@ class _HomeBarPageState extends State<HomeBarPage> {
 }
 
 Widget _buildArticleCardsFuture(
-    BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+    BuildContext context, AsyncSnapshot<JsonData> snapshot) {
   late Widget _child;
   if (snapshot.hasData) {
     _child = Padding(
@@ -173,7 +156,7 @@ Widget _buildArticleCardsFuture(
           SizedBox(
             height: 290.0,
             child: ArticleCard(
-              data: snapshot.data!['main_articles'],
+              snapshot.data!['main_articles'],
               align: CardAlign.vertical,
               imgHeight: 150,
               imgWidth: 250,
@@ -203,7 +186,7 @@ Widget _buildArticleCardsFuture(
           SizedBox(
             height: 400.0,
             child: ArticleCard(
-              data: snapshot.data!['half_articles'],
+              snapshot.data!['half_articles'],
               align: CardAlign.horizontal,
               imgHeight: 110,
               imgWidth: 150,
@@ -230,7 +213,7 @@ Widget _buildArticleCardsFuture(
           SizedBox(
             height: 600.0,
             child: ArticleCard(
-              data: snapshot.data!['last_articles'],
+              snapshot.data!['last_articles'],
               align: CardAlign.matrix,
               imgWidth: 200,
               imgHeight: 120,
@@ -242,44 +225,11 @@ Widget _buildArticleCardsFuture(
   } else if (snapshot.hasError) {
     _child = SizedBox(
       height: MediaQuery.of(context).size.height * 0.65,
-      child: _buildErrorCard(),
+      child: const ErrorCard(),
     );
+    _child = const LoadingPage();
   } else {
     _child = const LoadingPage();
   }
   return _child;
-}
-
-Widget _buildErrorCard() {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text(
-            'SORRY',
-            style: TextStyle(
-              color: Colors.black12,
-              fontSize: 48,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Courier',
-            ),
-          ),
-          Icon(
-            Icons.info,
-            color: Colors.black12,
-            size: 32,
-          ),
-        ],
-      ),
-      const Text(
-        'Failed to retrieve data.',
-        style: TextStyle(
-          color: Colors.grey,
-          fontSize: 16,
-        ),
-      ),
-    ],
-  );
 }

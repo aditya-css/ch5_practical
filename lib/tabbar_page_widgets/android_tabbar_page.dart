@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../bottom_navbar_pages/store_bar_page.dart';
+import '../utilities.dart';
 
 class AndroidTabBarPage extends StatelessWidget {
   const AndroidTabBarPage({Key? key}) : super(key: key);
@@ -84,7 +84,7 @@ class AndroidTabBarPage extends StatelessWidget {
         return Container(
           height: 200,
           padding: const EdgeInsets.symmetric(vertical: 24),
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).colorScheme.secondary,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'home_page.dart';
+import '/home_page.dart';
+import '/routing/navigation_service.dart';
+import '/routing/router.dart';
+import 'utilities.dart';
 
 void main() => runApp(const MyApp());
 
@@ -14,8 +17,12 @@ class MyApp extends StatelessWidget {
       title: 'Best Folk Medicine',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.black,
-        primarySwatch: Colors.blueGrey,
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: kPrimarySwatch,
+        ).copyWith(
+          secondary: kSecondaryColor,
+          secondaryVariant: kSecondaryVariant,
+        ),
         textTheme: Theme.of(context).textTheme.copyWith(
               // Defaults
               // NAME         SIZE  WEIGHT  SPACING
@@ -35,7 +42,9 @@ class MyApp extends StatelessWidget {
               bodyText2: GoogleFonts.playfairDisplay(),
             ),
       ),
-      home: const MyHomePage(),
+      navigatorKey: NavigationService.navKey,
+      initialRoute: MyHomePage.routeName,
+      onGenerateRoute: MyRouter.generateRoute,
     );
   }
 }
