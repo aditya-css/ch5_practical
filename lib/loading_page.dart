@@ -55,8 +55,8 @@ class _LoadingPageState extends State<LoadingPage>
 
   Widget get _imageBox => _buildShaderMask(
         Container(
-          height: 150,
-          width: 150,
+          height: _size.width * 0.4,
+          width: _size.width * 0.4,
           color: Colors.white,
         ),
       );
@@ -64,7 +64,7 @@ class _LoadingPageState extends State<LoadingPage>
   Widget get _catTextBox => _buildShaderMask(
         Container(
           height: 55,
-          width: 150,
+          width: _size.width * 0.4,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.white, width: 3),
           ),
@@ -78,14 +78,7 @@ class _LoadingPageState extends State<LoadingPage>
 
   Row get _categoryBox => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _catTextBox,
-          const Text(
-            '...',
-            style: TextStyle(fontSize: 32, color: Colors.white),
-          ),
-          _catTextBox,
-        ],
+        children: [_catTextBox, _catTextBox],
       );
 
   Column get _verticalArticle => Column(
@@ -93,7 +86,7 @@ class _LoadingPageState extends State<LoadingPage>
         children: [
           _imageBox,
           const SizedBox(height: 8.0),
-          SizedBox(height: 30, width: _size.width * 0.40, child: _textBox),
+          SizedBox(height: 30, width: _size.width * 0.4, child: _textBox),
         ],
       );
 
@@ -160,14 +153,7 @@ class _LoadingPageState extends State<LoadingPage>
           padding: const EdgeInsets.all(16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _verticalArticle,
-              const Text(
-                '...',
-                style: TextStyle(fontSize: 32, color: Colors.white),
-              ),
-              _verticalArticle,
-            ],
+            children: [_verticalArticle, _verticalArticle],
           ),
         ),
         if (!widget.showHalf)

@@ -182,10 +182,9 @@ class ArticleDetailPage extends StatelessWidget {
       );
     } else if (snapshot.hasError) {
       _child = const SizedBox(
-        height: 300,
+        height: 250,
         child: ErrorCard(),
       );
-      _child = const LoadingPage(showHalf: true);
     } else {
       _child = const LoadingPage(showHalf: true);
     }

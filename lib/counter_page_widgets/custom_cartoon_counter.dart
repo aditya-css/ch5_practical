@@ -19,8 +19,12 @@ class CartoonCountShower extends StatefulWidget {
 }
 
 class _CartoonCountShowerState extends State<CartoonCountShower> {
-  double get _faceSize => 200;
+  double get _boardHeight => MediaQuery.of(context).size.height * 0.2;
+
+  double get _faceSize => MediaQuery.of(context).size.width * 0.5;
+
   double get _handSize => 50;
+
   Matrix4 get _verticalTransform => Matrix4.rotationY((-2) * pi / 2);
 
   Image get _cartoonFace => Image.asset(
@@ -53,64 +57,68 @@ class _CartoonCountShowerState extends State<CartoonCountShower> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              widget.title,
-              style: const TextStyle(
-                fontSize: 32,
-                fontStyle: FontStyle.italic,
-                color: Colors.white,
+    return Material(
+      elevation: 20,
+      borderRadius: BorderRadius.circular(8.0),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                widget.title,
+                style: const TextStyle(
+                  fontSize: 32,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          _cartoonFace,
-          Stack(
-            children: [
-              Container(
-                height: 150,
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 22.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Center(
-                  child: Text(
-                    widget.friendsCount.toString(),
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: 54,
-                      fontWeight: FontWeight.w900,
+            _cartoonFace,
+            Stack(
+              children: [
+                Container(
+                  height: _boardHeight,
+                  width: double.infinity,
+                  margin: const EdgeInsets.symmetric(horizontal: 22.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Center(
+                    child: Text(
+                      widget.friendsCount.toString(),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: 54,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                left: 5,
-                bottom: 20,
-                child: _cartoonHand,
-              ),
-              Positioned(
-                right: -45,
-                bottom: 20,
-                child: Transform(
-                  transform: _verticalTransform,
+                Positioned(
+                  left: 5,
+                  bottom: 20,
                   child: _cartoonHand,
                 ),
-              ),
-            ],
-          ),
-        ],
+                Positioned(
+                  right: -45,
+                  bottom: 20,
+                  child: Transform(
+                    transform: _verticalTransform,
+                    child: _cartoonHand,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

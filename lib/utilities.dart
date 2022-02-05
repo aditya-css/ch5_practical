@@ -66,7 +66,6 @@ Future<JsonData> loadJsonData(BuildContext context, String source) async {
   late Map<String, dynamic> _jsonResult;
   String _jsonText = await DefaultAssetBundle.of(context).loadString(source);
   _jsonResult = jsonDecode(_jsonText);
-  throw Exception('loadint');
   return _jsonResult;
 }
 
