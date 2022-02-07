@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../extensions.dart';
 import '../utilities.dart';
 
 class IOSTabBarPage extends StatelessWidget {

@@ -21,8 +21,10 @@ class _DecrementCountState extends State<DecrementCount> with RouteAware {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    FavouriteBarPage.nestedRouteObserver
-        .subscribe(this, ModalRoute.of(context)!);
+    FavouriteBarPage.nestedRouteObserver.subscribe(
+      this,
+      ModalRoute.of(context)!,
+    );
   }
 
   @override

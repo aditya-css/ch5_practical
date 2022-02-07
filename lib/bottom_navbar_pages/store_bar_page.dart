@@ -6,7 +6,7 @@ import '../tabbar_page_widgets/ios_tabbar_page.dart';
 class StoreBarPage extends StatelessWidget {
   const StoreBarPage({Key? key}) : super(key: key);
 
-  static const List<Text> _tabs = <Text>[
+  final List<Text> _tabs = const <Text>[
     Text(
       'Android',
       style: TextStyle(fontSize: 18, height: 4),
@@ -17,7 +17,7 @@ class StoreBarPage extends StatelessWidget {
     ),
   ];
 
-  static const List<Widget> _tabViews = <Widget>[
+  final List<Widget> _tabViews = const <Widget>[
     AndroidTabBarPage(),
     IOSTabBarPage(),
   ];
@@ -39,7 +39,7 @@ class StoreBarPage extends StatelessWidget {
             ),
           ),
         ),
-        body: const Center(
+        body: Center(
           child: TabBarView(children: _tabViews),
         ),
       ),

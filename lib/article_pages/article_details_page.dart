@@ -1,21 +1,42 @@
 import 'package:flutter/material.dart';
 
+import '../custom_cards/matrix_article_card.dart';
 import '../custom_error_card.dart';
+import '../extensions.dart';
 import '../loading_page.dart';
 import '../routing/navigation_service.dart';
 import '../utilities.dart';
-import 'custom_article_card.dart';
+import 'section_header_widget.dart';
 
-class ArticleDetailPage extends StatelessWidget {
+class ArticleDetailPage extends StatefulWidget {
   const ArticleDetailPage(this.data, {Key? key}) : super(key: key);
 
   static const String routeName = '/articleDetails';
 
   final JsonData data;
 
-  JsonData get _jsonData => data['data'];
+  @override
+  State<ArticleDetailPage> createState() => _ArticleDetailPageState();
+}
 
-  String get _tag => data['tag'];
+class _ArticleDetailPageState extends State<ArticleDetailPage> {
+  JsonData get _jsonData => widget.data['data'];
+
+  String get _tag => widget.data['tag'];
+
+  String get _author => 'Written by ' + (_jsonData['author'] ?? 'unknown');
+
+  String get _body => _jsonData['body'].toString().isEmpty
+      ? 'No Body Found.'
+      : _jsonData['body'];
+
+  late final Future<JsonData> _articleFuture;
+
+  @override
+  void didChangeDependencies() {
+    _articleFuture = loadJsonData(context, articleJsonSrc);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,15 +95,16 @@ class ArticleDetailPage extends StatelessWidget {
                               Expanded(
                                 flex: 2,
                                 child: Text(
-                                  'Written by ' +
-                                      (_jsonData['author'] ?? 'unknown'),
+                                  _author,
                                   style: const TextStyle(fontSize: 14),
                                 ),
                               ),
                               Flexible(
                                 flex: 1,
                                 child: Text(
-                                  timeAgo(_jsonData['published_date']),
+                                  TimeAgo(
+                                    _jsonData['published_date'],
+                                  ).calculate,
                                   style: TextStyle(
                                     color: Colors.grey.shade500,
                                     fontSize: 14,
@@ -98,14 +120,41 @@ class ArticleDetailPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Text(
-                              _jsonData['body'].toString().isEmpty
-                                  ? 'No Body Found.'
-                                  : _jsonData['body'],
-                              overflow: TextOverflow.fade),
+                          Text(_body, overflow: TextOverflow.fade),
                           FutureBuilder(
-                            future: loadJsonData(context, articleJsonSrc),
-                            builder: _buildArticleCardsFuture,
+                            future: _articleFuture,
+                            builder: (BuildContext context,
+                                AsyncSnapshot<JsonData> snapshot) {
+                              if (snapshot.hasError) {
+                                return const SizedBox(
+                                  height: 250,
+                                  child: ErrorCard(),
+                                );
+                              }
+                              if (snapshot.hasData) {
+                                return Column(
+                                  children: [
+                                    const SectionHeader(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 16.0),
+                                      title: 'Similar Articles',
+                                    ),
+                                    SizedBox(
+                                      height: 600.0,
+                                      child: ArticlesMatrix(
+                                        snapshot.data!['last_articles'],
+                                        replacePage: true,
+                                        length: 4,
+                                        columnCount: 2,
+                                        imgWidth: 200,
+                                        imgHeight: 120,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
+                              return const LoadingPage(showHalf: true);
+                            },
                           ),
                           Column(
                             children: [
@@ -142,52 +191,5 @@ class ArticleDetailPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _buildArticleCardsFuture(
-      BuildContext context, AsyncSnapshot<JsonData> snapshot) {
-    late Widget _child;
-    if (snapshot.hasData) {
-      _child = Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Similar articles',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'See more',
-                  style: TextStyle(
-                    color: Colors.grey.shade500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 600.0,
-            child: ArticleCard(
-              snapshot.data!['last_articles'],
-              replacePage: true,
-              align: CardAlign.matrix,
-              imgWidth: 200,
-              imgHeight: 120,
-            ),
-          ),
-        ],
-      );
-    } else if (snapshot.hasError) {
-      _child = const SizedBox(
-        height: 250,
-        child: ErrorCard(),
-      );
-    } else {
-      _child = const LoadingPage(showHalf: true);
-    }
-    return _child;
   }
 }

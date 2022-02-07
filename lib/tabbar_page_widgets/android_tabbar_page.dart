@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../extensions.dart';
 import '../utilities.dart';
 
 class AndroidTabBarPage extends StatelessWidget {

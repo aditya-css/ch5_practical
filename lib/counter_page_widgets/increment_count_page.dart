@@ -21,8 +21,10 @@ class _IncrementCountState extends State<IncrementCount> with RouteAware {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    FavouriteBarPage.nestedRouteObserver
-        .subscribe(this, ModalRoute.of(context)!);
+    FavouriteBarPage.nestedRouteObserver.subscribe(
+      this,
+      ModalRoute.of(context)!,
+    );
   }
 
   @override

@@ -20,8 +20,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late final List<Widget> _bottomNavBarPages;
 
-  static const List<BottomNavigationBarItem> _bottomNavBarItems =
-      <BottomNavigationBarItem>[
+  final List<BottomNavigationBarItem> _bottomNavBarItems =
+      const <BottomNavigationBarItem>[
     BottomNavigationBarItem(
       icon: Icon(Icons.home),
       label: 'Home',

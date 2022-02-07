@@ -1,7 +1,9 @@
 import 'dart:convert' show jsonDecode;
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' show DateFormat;
+
+import 'article_pages/article_details_page.dart';
+import 'routing/navigation_service.dart';
 
 //TypeDefs
 typedef JsonData = Map<String, dynamic>;
@@ -37,6 +39,8 @@ int get favouriteIndex => 2;
 
 int get settingsIndex => 3;
 
+String get title => 'Best Folk Medicine';
+
 String get categoryJsonSrc => 'assets/dummy_data/categories.json';
 
 String get articleJsonSrc => 'assets/dummy_data/articles.json';
@@ -50,17 +54,6 @@ enum CardAlign { vertical, horizontal, matrix }
 enum FavouriteActions { increment, decrement }
 enum SampleDialogOptions { option1, option2 }
 
-extension SimpleDialogOptionsExtension on SampleDialogOptions {
-  String get value {
-    switch (this) {
-      case SampleDialogOptions.option1:
-        return 'Sample Option 1';
-      case SampleDialogOptions.option2:
-        return 'Sample Option 2';
-    }
-  }
-}
-
 //Functions
 Future<JsonData> loadJsonData(BuildContext context, String source) async {
   late Map<String, dynamic> _jsonResult;
@@ -69,20 +62,16 @@ Future<JsonData> loadJsonData(BuildContext context, String source) async {
   return _jsonResult;
 }
 
-String timeAgo(String date) {
-  DateTime _formattedDate = DateFormat("dd-MM-yyyy").parse(date);
-  Duration _diff = DateTime.now().difference(_formattedDate);
-  if (_diff.inDays > 365) {
-    return "${(_diff.inDays / 365).floor()} ${(_diff.inDays / 365).floor() == 1 ? "year" : "years"} ago";
+void handleArticleNavigation(JsonData data, {bool replacePage = false}) {
+  if (replacePage) {
+    NavigationService.replace(
+      ArticleDetailPage.routeName,
+      args: data,
+    );
+  } else {
+    NavigationService.push(
+      ArticleDetailPage.routeName,
+      args: data,
+    );
   }
-  if (_diff.inDays > 30) {
-    return "${(_diff.inDays / 30).floor()} ${(_diff.inDays / 30).floor() == 1 ? "month" : "months"} ago";
-  }
-  if (_diff.inDays > 7) {
-    return "${(_diff.inDays / 7).floor()} ${(_diff.inDays / 7).floor() == 1 ? "week" : "weeks"} ago";
-  }
-  if (_diff.inDays > 0) {
-    return "${_diff.inDays} ${_diff.inDays == 1 ? "day" : "days"} ago";
-  }
-  return "just now";
 }
