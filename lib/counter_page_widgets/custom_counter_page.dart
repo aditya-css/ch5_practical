@@ -1,12 +1,11 @@
 import 'dart:math' show Random;
 
+import 'package:ch5_practical/counter_page_widgets/counter_inherited_widget.dart';
+import 'package:ch5_practical/counter_page_widgets/custom_cartoon_counter.dart';
+import 'package:ch5_practical/counter_page_widgets/decrement_count_page.dart';
+import 'package:ch5_practical/counter_page_widgets/increment_count_page.dart';
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
-
-import '../utilities.dart';
-import 'counter_inherited_widget.dart';
-import 'custom_cartoon_counter.dart';
-import 'decrement_count_page.dart';
-import 'increment_count_page.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage(

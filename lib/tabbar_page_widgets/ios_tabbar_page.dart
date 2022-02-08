@@ -1,8 +1,7 @@
+import 'package:ch5_practical/extensions.dart';
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../extensions.dart';
-import '../utilities.dart';
 
 class IOSTabBarPage extends StatelessWidget {
   const IOSTabBarPage({Key? key}) : super(key: key);
@@ -27,7 +26,7 @@ class IOSTabBarPage extends StatelessWidget {
     );
   }
 
-  Future<SampleDialogOptions?> _buildDialogOptions(BuildContext context) {
+  Future<SampleDialogOptions?> _buildActionSheet(BuildContext context) {
     return showCupertinoModalPopup<SampleDialogOptions>(
         context: context,
         builder: (BuildContext context) {
@@ -54,9 +53,10 @@ class IOSTabBarPage extends StatelessWidget {
         });
   }
 
-  Future<SampleDialogOptions?> _buildActionSheet(BuildContext context) async {
+  Future<SampleDialogOptions?> _buildActionSheetSelector(
+      BuildContext context) async {
     late String _selectedOption;
-    switch (await _buildDialogOptions(context)) {
+    switch (await _buildActionSheet(context)) {
       case SampleDialogOptions.option1:
         {
           _selectedOption = SampleDialogOptions.option1.value;
@@ -94,7 +94,7 @@ class IOSTabBarPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: CupertinoButton.filled(
-            onPressed: () => _buildActionSheet(context),
+            onPressed: () => _buildActionSheetSelector(context),
             child: const Text('CupertinoActionSheet'),
           ),
         ),

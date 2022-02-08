@@ -1,6 +1,5 @@
+import 'package:ch5_practical/utilities.dart';
 import 'package:intl/intl.dart' show DateFormat;
-
-import 'utilities.dart';
 
 extension SimpleDialogOptionsExtension on SampleDialogOptions {
   String get value {

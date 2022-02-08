@@ -1,9 +1,8 @@
 import 'dart:convert' show jsonDecode;
 
+import 'package:ch5_practical/article_pages/article_details_page.dart';
+import 'package:ch5_practical/routing/navigation_service.dart';
 import 'package:flutter/material.dart';
-
-import 'article_pages/article_details_page.dart';
-import 'routing/navigation_service.dart';
 
 //TypeDefs
 typedef JsonData = Map<String, dynamic>;

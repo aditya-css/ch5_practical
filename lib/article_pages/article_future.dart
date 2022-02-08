@@ -1,12 +1,11 @@
+import 'package:ch5_practical/article_pages/section_header_widget.dart';
 import 'package:ch5_practical/custom_cards/horizontal_article_card.dart';
 import 'package:ch5_practical/custom_cards/matrix_article_card.dart';
 import 'package:ch5_practical/custom_cards/vertical_article_card.dart';
+import 'package:ch5_practical/custom_error_card.dart';
+import 'package:ch5_practical/loading_page.dart';
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
-
-import '../custom_error_card.dart';
-import '../loading_page.dart';
-import '../utilities.dart';
-import 'section_header_widget.dart';
 
 class ArticleFuturePage extends StatefulWidget {
   const ArticleFuturePage({Key? key}) : super(key: key);

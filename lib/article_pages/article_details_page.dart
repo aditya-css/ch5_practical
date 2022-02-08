@@ -1,12 +1,11 @@
+import 'package:ch5_practical/article_pages/section_header_widget.dart';
+import 'package:ch5_practical/custom_cards/matrix_article_card.dart';
+import 'package:ch5_practical/custom_error_card.dart';
+import 'package:ch5_practical/extensions.dart';
+import 'package:ch5_practical/loading_page.dart';
+import 'package:ch5_practical/routing/navigation_service.dart';
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
-
-import '../custom_cards/matrix_article_card.dart';
-import '../custom_error_card.dart';
-import '../extensions.dart';
-import '../loading_page.dart';
-import '../routing/navigation_service.dart';
-import '../utilities.dart';
-import 'section_header_widget.dart';
 
 class ArticleDetailPage extends StatefulWidget {
   const ArticleDetailPage(this.data, {Key? key}) : super(key: key);
@@ -20,15 +19,15 @@ class ArticleDetailPage extends StatefulWidget {
 }
 
 class _ArticleDetailPageState extends State<ArticleDetailPage> {
-  JsonData get _jsonData => widget.data['data'];
+  JsonData get _articleData => widget.data['data'];
 
   String get _tag => widget.data['tag'];
 
-  String get _author => 'Written by ' + (_jsonData['author'] ?? 'unknown');
+  String get _author => 'Written by ' + (_articleData['author'] ?? 'unknown');
 
-  String get _body => _jsonData['body'].toString().isEmpty
+  String get _body => _articleData['body'].toString().isEmpty
       ? 'No Body Found.'
-      : _jsonData['body'];
+      : _articleData['body'];
 
   late final Future<JsonData> _articleFuture;
 
@@ -69,7 +68,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                     Hero(
                       tag: _tag,
                       child: Image.asset(
-                        _jsonData['image_url'],
+                        _articleData['image_url'],
                         fit: BoxFit.cover,
                         height: 200,
                         width: MediaQuery.of(context).size.width,
@@ -80,7 +79,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                       child: Column(
                         children: [
                           Text(
-                            _jsonData['title'],
+                            _articleData['title'],
                             softWrap: true,
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
@@ -103,7 +102,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                 flex: 1,
                                 child: Text(
                                   TimeAgo(
-                                    _jsonData['published_date'],
+                                    _articleData['published_date'],
                                   ).calculate,
                                   style: TextStyle(
                                     color: Colors.grey.shade500,

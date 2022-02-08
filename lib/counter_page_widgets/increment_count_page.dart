@@ -1,9 +1,8 @@
+import 'package:ch5_practical/bottom_navbar_pages/favourite_bar_page.dart';
+import 'package:ch5_practical/counter_page_widgets/counter_inherited_widget.dart';
+import 'package:ch5_practical/counter_page_widgets/custom_counter_page.dart';
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
-
-import '../bottom_navbar_pages/favourite_bar_page.dart';
-import '../utilities.dart';
-import 'counter_inherited_widget.dart';
-import 'custom_counter_page.dart';
 
 class IncrementCount extends StatefulWidget {
   const IncrementCount({Key? key}) : super(key: key);

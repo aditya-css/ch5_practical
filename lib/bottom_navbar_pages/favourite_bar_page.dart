@@ -1,9 +1,8 @@
+import 'package:ch5_practical/counter_page_widgets/counter_inherited_widget.dart';
+import 'package:ch5_practical/counter_page_widgets/decrement_count_page.dart';
+import 'package:ch5_practical/counter_page_widgets/increment_count_page.dart';
+import 'package:ch5_practical/routing/custom_route_transition.dart';
 import 'package:flutter/material.dart';
-
-import '../counter_page_widgets/counter_inherited_widget.dart';
-import '../counter_page_widgets/decrement_count_page.dart';
-import '../counter_page_widgets/increment_count_page.dart';
-import '../routing/custom_route_transition.dart';
 
 class FavouriteBarPage extends StatefulWidget {
   const FavouriteBarPage({Key? key}) : super(key: key);

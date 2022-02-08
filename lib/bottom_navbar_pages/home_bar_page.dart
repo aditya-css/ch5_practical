@@ -1,9 +1,8 @@
+import 'package:ch5_practical/article_pages/article_future.dart';
 import 'package:ch5_practical/article_pages/category_future.dart';
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../article_pages/article_future.dart';
-import '../utilities.dart';
 
 class HomeBarPage extends StatefulWidget {
   const HomeBarPage({Key? key, required this.onActionTap}) : super(key: key);

@@ -1,12 +1,11 @@
+import 'package:ch5_practical/extensions.dart';
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
-
-import '../extensions.dart';
-import '../utilities.dart';
 
 class AndroidTabBarPage extends StatelessWidget {
   const AndroidTabBarPage({Key? key}) : super(key: key);
 
-  Future<SampleDialogOptions?> _buildDialogOptions(BuildContext context) async {
+  Future<SampleDialogOptions?> _buildSimpleDialog(BuildContext context) async {
     return await showDialog<SampleDialogOptions>(
       context: context,
       builder: (BuildContext context) {
@@ -33,9 +32,9 @@ class AndroidTabBarPage extends StatelessWidget {
     );
   }
 
-  Future<void> _buildSimpleDialog(BuildContext context) async {
+  Future<void> _buildDialogOptionSelector(BuildContext context) async {
     late String _selectedOption;
-    switch (await _buildDialogOptions(context)) {
+    switch (await _buildSimpleDialog(context)) {
       case SampleDialogOptions.option1:
         {
           _selectedOption = SampleDialogOptions.option1.value;
@@ -61,7 +60,7 @@ class AndroidTabBarPage extends StatelessWidget {
   Future<void> _buildAlertDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('AlertDialog Title'),
@@ -116,7 +115,7 @@ class AndroidTabBarPage extends StatelessWidget {
           child: const Text('AlertDialog'),
         ),
         ElevatedButton(
-          onPressed: () => _buildSimpleDialog(context),
+          onPressed: () => _buildDialogOptionSelector(context),
           child: const Text('SimpleDialog'),
         ),
         ElevatedButton(

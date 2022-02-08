@@ -1,7 +1,6 @@
+import 'package:ch5_practical/tabbar_page_widgets/android_tabbar_page.dart';
+import 'package:ch5_practical/tabbar_page_widgets/ios_tabbar_page.dart';
 import 'package:flutter/material.dart';
-
-import '../tabbar_page_widgets/android_tabbar_page.dart';
-import '../tabbar_page_widgets/ios_tabbar_page.dart';
 
 class StoreBarPage extends StatelessWidget {
   const StoreBarPage({Key? key}) : super(key: key);

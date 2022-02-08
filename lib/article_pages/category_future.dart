@@ -1,7 +1,6 @@
+import 'package:ch5_practical/custom_cards/category_card_widget.dart';
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
-
-import '../custom_cards/category_card_widget.dart';
-import '../utilities.dart';
 
 class CategoryFuturePage extends StatefulWidget {
   const CategoryFuturePage({Key? key}) : super(key: key);

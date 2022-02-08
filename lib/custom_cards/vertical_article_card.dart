@@ -1,9 +1,8 @@
 import 'dart:math' show Random;
 
+import 'package:ch5_practical/extensions.dart';
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
-
-import '../extensions.dart';
-import '../utilities.dart';
 
 class ArticlesVertical extends StatelessWidget {
   const ArticlesVertical(

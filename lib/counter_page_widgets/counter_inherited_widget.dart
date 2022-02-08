@@ -1,6 +1,5 @@
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
-
-import '../utilities.dart';
 
 class CounterParentWidget extends InheritedWidget {
   const CounterParentWidget({

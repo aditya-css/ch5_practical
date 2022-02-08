@@ -1,10 +1,9 @@
+import 'package:ch5_practical/home_page.dart';
+import 'package:ch5_practical/routing/navigation_service.dart';
+import 'package:ch5_practical/routing/router.dart';
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '/home_page.dart';
-import '/routing/navigation_service.dart';
-import '/routing/router.dart';
-import 'utilities.dart';
 
 void main() => runApp(const MyApp());
 

@@ -1,8 +1,7 @@
 import 'dart:math' show pi;
 
+import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
-
-import '../utilities.dart';
 
 class CartoonCountShower extends StatefulWidget {
   const CartoonCountShower({
