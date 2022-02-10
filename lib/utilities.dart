@@ -1,5 +1,3 @@
-import 'dart:convert' show jsonDecode;
-
 import 'package:ch5_practical/article_pages/article_details_page.dart';
 import 'package:ch5_practical/routing/navigation_service.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +25,8 @@ const MaterialColor kPrimarySwatch = MaterialColor(
   },
 );
 const Color kSecondaryColor = Color(0xffea7b88);
-const Color kSecondaryVariant = Color(0xff3dd4cf);
+const Color kSecondaryContainer = Color(0xff3dd4cf);
+const Color kErrorColor = Colors.limeAccent;
 
 //Getters
 int get homeIndex => 0;
@@ -39,10 +38,6 @@ int get favouriteIndex => 2;
 int get settingsIndex => 3;
 
 String get title => 'Best Folk Medicine';
-
-String get categoryJsonSrc => 'assets/dummy_data/categories.json';
-
-String get articleJsonSrc => 'assets/dummy_data/articles.json';
 
 String get cartoonSrc => 'assets/images/zoey.png';
 
@@ -56,13 +51,6 @@ enum ScreenState { home, info }
 enum AnimSpeed { veryFast, fast, normal, slow, verySlow }
 
 //Functions
-Future<JsonData> loadJsonData(BuildContext context, String source) async {
-  late Map<String, dynamic> _jsonResult;
-  String _jsonText = await DefaultAssetBundle.of(context).loadString(source);
-  _jsonResult = jsonDecode(_jsonText);
-  return _jsonResult;
-}
-
 void handleArticleNavigation(JsonData data, {bool replacePage = false}) {
   if (replacePage) {
     NavigationService.replace(

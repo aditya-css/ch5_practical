@@ -34,17 +34,17 @@ class _FavouriteBarPageState extends State<FavouriteBarPage> {
   Route<dynamic> _generateNestedRoute(RouteSettings settings) {
     switch (settings.name) {
       case IncrementCount.routeName:
-        return MyRouteTransition(page: const IncrementCount());
+        return MyRouteTransition(const IncrementCount());
       case DecrementCount.routeName:
-        return MyRouteTransition(page: const DecrementCount());
+        return MyRouteTransition(const DecrementCount());
       default:
-        return MyRouteTransition(page: const IncrementCount());
+        return MyRouteTransition(const IncrementCount());
     }
   }
 
   @override
   void didChangeDependencies() {
-    _backColor = Theme.of(context).colorScheme.secondaryVariant;
+    _backColor = Theme.of(context).colorScheme.secondaryContainer;
     super.didChangeDependencies();
   }
 

@@ -1,6 +1,5 @@
+import 'package:ch5_practical/networking/models/article_model.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'article_model.dart';
 
 part 'api_response_model.g.dart';
 

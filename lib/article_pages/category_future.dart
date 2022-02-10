@@ -1,3 +1,5 @@
+import 'dart:convert' show jsonDecode;
+
 import 'package:ch5_practical/custom_cards/category_card_widget.dart';
 import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +12,20 @@ class CategoryFuturePage extends StatefulWidget {
 }
 
 class _CategoryFuturePageState extends State<CategoryFuturePage> {
+  String get _categoryJsonSrc => 'assets/dummy_data/categories.json';
+
   late final Future<JsonData> _categoryFuture;
+
+  Future<JsonData> loadJsonData(String source) async {
+    late JsonData _jsonResult;
+    String _jsonText = await DefaultAssetBundle.of(context).loadString(source);
+    _jsonResult = jsonDecode(_jsonText) as JsonData;
+    return _jsonResult;
+  }
 
   @override
   void didChangeDependencies() {
-    _categoryFuture = loadJsonData(context, categoryJsonSrc);
+    _categoryFuture = loadJsonData(_categoryJsonSrc);
     super.didChangeDependencies();
   }
 

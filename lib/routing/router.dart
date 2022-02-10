@@ -16,7 +16,7 @@ class MyRouter {
         var args = settings.arguments;
         if (args is JsonData) {
           return MyRouteTransition(
-            page: ArticleDetailPage(args),
+            ArticleDetailPage(args),
           );
         } else {
           break;

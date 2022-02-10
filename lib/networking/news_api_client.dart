@@ -7,7 +7,7 @@ part 'news_api_client.g.dart';
 
 @RestApi()
 abstract class NewsApiClient {
-  factory NewsApiClient(Dio dio, {String? baseUrl}) = _NewsApiClient;
+  factory NewsApiClient(Dio dio) = _NewsApiClient;
 
   @GET(ApiConst.indiaHeadlines)
   Future<ApiResponse> getTopArticles();
