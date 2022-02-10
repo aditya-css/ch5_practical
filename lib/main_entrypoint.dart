@@ -30,15 +30,25 @@ class MyApp extends StatelessWidget {
               // caption      12.0  regular  0.4
               headline5: GoogleFonts.playfairDisplay(
                 fontWeight: FontWeight.bold,
+                color: FlavourConfig.instance.colorScheme.background,
               ),
               subtitle1: GoogleFonts.playfairDisplay(
                 fontWeight: FontWeight.bold,
+                color: FlavourConfig.instance.colorScheme.background,
               ),
               caption: GoogleFonts.playfairDisplay(
                 fontWeight: FontWeight.bold,
+                color: FlavourConfig.instance.colorScheme.background,
               ),
-              bodyText2: GoogleFonts.playfairDisplay(),
+              bodyText2: GoogleFonts.playfairDisplay(
+                color: FlavourConfig.instance.colorScheme.background,
+              ),
             ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: FlavourConfig.isDev ? kSecondaryColor : kSecondaryVariant,
+          ),
+        ),
       ),
       navigatorKey: NavigationService.navKey,
       initialRoute: MyHomePage.routeName,

@@ -35,7 +35,7 @@ class ArticlesVertical extends StatelessWidget {
             tag: _tag,
             child: Container(
               width: boxWidth,
-              margin: const EdgeInsets.only(right: 16.0, bottom: 8.0),
+              margin: const EdgeInsets.only(right: 16.0, bottom: 16.0),
               child: Material(
                 elevation: elevation!,
                 shadowColor: shadowColor!,

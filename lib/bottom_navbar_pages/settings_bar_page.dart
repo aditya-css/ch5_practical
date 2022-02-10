@@ -233,9 +233,9 @@ class _SettingsBarPageState extends State<SettingsBarPage>
                     backgroundColor:
                         FlavourConfig.instance.colorScheme.secondary,
                     child: Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: Alignment.center,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 36.0),
+                        padding: const EdgeInsets.only(right: 50),
                         child: AnimatedOpacity(
                           opacity: _showArrow,
                           duration:
