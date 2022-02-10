@@ -33,7 +33,7 @@ class ArticlesHorizontal extends StatelessWidget {
               child: Hero(
                 tag: _tag,
                 child: Material(
-                  type: MaterialType.transparency,
+                  type: MaterialType.card,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -45,40 +45,43 @@ class ArticlesHorizontal extends StatelessWidget {
                       ),
                       const SizedBox(width: 16.0),
                       Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              data[index]['title'],
-                              maxLines: 2,
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5
-                                  ?.copyWith(fontSize: 18),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4.0),
-                              child: Text(
-                                TimeAgo(
-                                  data[index]['published_date'],
-                                ).calculate,
-                                style: Theme.of(context).textTheme.caption,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                data[index]['title'],
+                                maxLines: 2,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5
+                                    ?.copyWith(fontSize: 18),
                               ),
-                            ),
-                            Text(
-                              data[index]['body'],
-                              maxLines: 2,
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.grey.shade500,
-                                fontSize: 15,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                child: Text(
+                                  TimeAgo(
+                                    data[index]['published_date'],
+                                  ).calculate,
+                                  style: Theme.of(context).textTheme.caption,
+                                ),
                               ),
-                            ),
-                          ],
+                              Text(
+                                data[index]['body'],
+                                maxLines: 2,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.grey.shade500,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],

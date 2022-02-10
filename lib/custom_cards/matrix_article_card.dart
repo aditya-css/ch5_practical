@@ -42,9 +42,8 @@ class ArticlesMatrix extends StatelessWidget {
           child: Hero(
             tag: _tag,
             child: Material(
-              type: MaterialType.transparency,
+              type: MaterialType.card,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Image.asset(
                     data[index]['image_url'],
@@ -52,37 +51,47 @@ class ArticlesMatrix extends StatelessWidget {
                     width: imgWidth,
                     height: imgHeight,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      TimeAgo(
-                        data[index]['published_date'],
-                      ).calculate,
-                      style: Theme.of(context).textTheme.caption,
-                    ),
-                  ),
                   Expanded(
-                    child: Text(
-                      data[index]['title'],
-                      maxLines: 3,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5
-                          ?.copyWith(fontSize: 18),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Expanded(
-                    child: Text(
-                      data[index]['body'],
-                      maxLines: 2,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.grey.shade500,
-                        fontSize: 16,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text(
+                              TimeAgo(
+                                data[index]['published_date'],
+                              ).calculate,
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              data[index]['title'],
+                              maxLines: 3,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5
+                                  ?.copyWith(fontSize: 18),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Expanded(
+                            child: Text(
+                              data[index]['body'],
+                              maxLines: 2,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey.shade500,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

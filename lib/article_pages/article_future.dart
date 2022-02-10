@@ -44,14 +44,14 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
                   title: 'Main Articles',
                 ),
                 SizedBox(
-                  height: 290.0,
+                  height: 300.0,
                   child: ArticlesVertical(
                     snapshot.data!['main_articles'],
                     imgHeight: 150,
                     imgWidth: 250,
                     boxWidth: 240,
-                    elevation: 15,
-                    shadowColor: Colors.grey.shade200,
+                    elevation: 12,
+                    shadowColor: Colors.grey.shade400,
                   ),
                 ),
                 const SectionHeader(
@@ -59,11 +59,11 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
                   title: 'You have not finished reading',
                 ),
                 SizedBox(
-                  height: 400.0,
+                  height: 435.0,
                   child: ArticlesHorizontal(
                     snapshot.data!['half_articles'],
                     length: 3,
-                    imgHeight: 110,
+                    imgHeight: 128,
                     imgWidth: 150,
                   ),
                 ),

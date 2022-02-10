@@ -155,6 +155,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               return const LoadingPage(showHalf: true);
                             },
                           ),
+                          const SizedBox(height: 16),
                           Column(
                             children: [
                               SizedBox(
