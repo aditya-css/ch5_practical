@@ -22,13 +22,13 @@ iOS: (https://apps.apple.com/in/app/best-folk-medicine/id1492230003)
 
 Dribbble: (https://dribbble.com/shots/7119496-Welcome-Screen-mobile-app-concep)
 
-![dribbble](https://github.com/aditya-css/ch5_practical/blob/feature/flavour_config/build%20showcase/ref.png)
+![dribbble](https://github.com/aditya-css/ch5_practical/blob/feature/flavor_config/build%20showcase/ref.gif)
 
 ## Different Bundle
 
-![ios](https://github.com/aditya-css/ch5_practical/blob/feature/flavour_config/build%20showcase/ios.png) ![android](https://github.com/aditya-css/ch5_practical/blob/feature/flavour_config/build%20showcase/android.png)
+![ios](https://github.com/aditya-css/ch5_practical/blob/feature/flavor_config/build%20showcase/ios.png) ![android](https://github.com/aditya-css/ch5_practical/blob/feature/flavor_config/build%20showcase/android.png)
 
 ## Flavor / Schemas UI
 
-![prod_flavor](https://github.com/aditya-css/ch5_practical/blob/feature/flavour_config/build%20showcase/prod.gif) ![dev_flavor](https://github.com/aditya-css/ch5_practical/blob/feature/flavour_config/build%20showcase/dev.gif)
+![prod_flavor](https://github.com/aditya-css/ch5_practical/blob/feature/flavor_config/build%20showcase/prod.gif) ![dev_flavor](https://github.com/aditya-css/ch5_practical/blob/feature/flavor_config/build%20showcase/dev.gif)
 
