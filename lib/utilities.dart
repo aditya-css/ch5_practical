@@ -49,9 +49,11 @@ String get cartoonSrc => 'assets/images/zoey.png';
 String get cartoonHandSrc => 'assets/images/zoey hand.png';
 
 //Enum
-enum CardAlign { vertical, horizontal, matrix }
 enum FavouriteActions { increment, decrement }
 enum SampleDialogOptions { option1, option2 }
+enum Flavour { development, production }
+enum ScreenState { home, info }
+enum AnimSpeed { veryFast, fast, normal, slow, verySlow }
 
 //Functions
 Future<JsonData> loadJsonData(BuildContext context, String source) async {

@@ -1,11 +1,10 @@
+import 'package:ch5_practical/flavour_config.dart';
 import 'package:ch5_practical/home_page.dart';
 import 'package:ch5_practical/routing/navigation_service.dart';
 import 'package:ch5_practical/routing/router.dart';
 import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: title,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+      theme: FlavourConfig.instance.flavourTheme.copyWith(
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: kPrimarySwatch,
         ).copyWith(
