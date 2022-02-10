@@ -1,6 +1,9 @@
 import 'dart:math' show Random;
 
+import 'package:ch5_practical/custom_error_card.dart';
 import 'package:ch5_practical/extensions.dart';
+import 'package:ch5_practical/loading_image_widget.dart';
+import 'package:ch5_practical/networking/models/article_model.dart';
 import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +17,7 @@ class ArticlesHorizontal extends StatelessWidget {
   }) : super(key: key);
 
   final double imgHeight, imgWidth;
-  final List data;
+  final List<Article> data;
   final int length;
 
   @override
@@ -23,13 +26,16 @@ class ArticlesHorizontal extends StatelessWidget {
       children: List.generate(
         length,
         (index) {
-          String _tag =
-              '$index' + data[index]['image_url'] + '${Random().nextInt(1000)}';
+          String _tag = Random().nextInt(1000).toString();
           return Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: GestureDetector(
-              onTap: () =>
-                  handleArticleNavigation({'data': data[index], 'tag': _tag}),
+              onTap: () => handleArticleNavigation(
+                <String, dynamic>{
+                  'data': data[index],
+                  'tag': _tag,
+                },
+              ),
               child: Hero(
                 tag: _tag,
                 child: Material(
@@ -37,11 +43,25 @@ class ArticlesHorizontal extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        data[index]['image_url'],
+                      Image.network(
+                        data[index].urlToImage,
                         fit: BoxFit.cover,
                         width: imgWidth,
                         height: imgHeight,
+                        loadingBuilder:
+                            (_, Widget child, ImageChunkEvent? progress) {
+                          if (progress == null) return child;
+                          return LoadingImage(
+                              width: imgWidth, height: imgHeight);
+                        },
+                        errorBuilder: (_, __, ___) {
+                          return Container(
+                            width: imgWidth,
+                            height: imgHeight,
+                            color: Theme.of(context).colorScheme.error,
+                            child: const ErrorCard(),
+                          );
+                        },
                       ),
                       const SizedBox(width: 16.0),
                       Expanded(
@@ -49,7 +69,7 @@ class ArticlesHorizontal extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              data[index]['title'],
+                              data[index].title,
                               maxLines: 2,
                               softWrap: true,
                               overflow: TextOverflow.ellipsis,
@@ -62,14 +82,12 @@ class ArticlesHorizontal extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 4.0),
                               child: Text(
-                                TimeAgo(
-                                  data[index]['published_date'],
-                                ).calculate,
+                                TimeAgo(data[index].publishedAt).calculate,
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ),
                             Text(
-                              data[index]['body'],
+                              data[index].description,
                               maxLines: 2,
                               softWrap: true,
                               overflow: TextOverflow.ellipsis,

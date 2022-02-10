@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: kPrimarySwatch,
         ).copyWith(
           secondary: kSecondaryColor,
-          secondaryVariant: kSecondaryVariant,
+          secondaryContainer: kSecondaryContainer,
+          error: kErrorColor,
         ),
         textTheme: Theme.of(context).textTheme.copyWith(
               // Defaults

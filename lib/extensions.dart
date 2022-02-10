@@ -1,5 +1,4 @@
 import 'package:ch5_practical/utilities.dart';
-import 'package:intl/intl.dart' show DateFormat;
 
 extension SimpleDialogOptionsExtension on SampleDialogOptions {
   String get value {
@@ -15,7 +14,7 @@ extension SimpleDialogOptionsExtension on SampleDialogOptions {
 extension TimeAgo on String {
   String get calculate {
     String date = this;
-    DateTime _formattedDate = DateFormat("dd-MM-yyyy").parse(date);
+    DateTime _formattedDate = DateTime.parse(date.split('T')[0]);
     Duration _diff = DateTime.now().difference(_formattedDate);
     if (_diff.inDays > 365) {
       return "${(_diff.inDays / 365).floor()} ${(_diff.inDays / 365).floor() == 1 ? "year" : "years"} ago";
@@ -29,6 +28,6 @@ extension TimeAgo on String {
     if (_diff.inDays > 0) {
       return "${_diff.inDays} ${_diff.inDays == 1 ? "day" : "days"} ago";
     }
-    return "just now";
+    return "today";
   }
 }

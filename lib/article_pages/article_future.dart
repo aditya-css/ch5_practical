@@ -4,7 +4,8 @@ import 'package:ch5_practical/custom_cards/matrix_article_card.dart';
 import 'package:ch5_practical/custom_cards/vertical_article_card.dart';
 import 'package:ch5_practical/custom_error_card.dart';
 import 'package:ch5_practical/loading_page.dart';
-import 'package:ch5_practical/utilities.dart';
+import 'package:ch5_practical/networking/api_constants.dart';
+import 'package:ch5_practical/networking/models/api_response_model.dart';
 import 'package:flutter/material.dart';
 
 class ArticleFuturePage extends StatefulWidget {
@@ -15,22 +16,22 @@ class ArticleFuturePage extends StatefulWidget {
 }
 
 class _ArticleFuturePageState extends State<ArticleFuturePage> {
-  late final Future<JsonData> _articleFuture;
+  late final Future<ApiResponse> _articleFuture;
 
   @override
   void didChangeDependencies() {
-    _articleFuture = loadJsonData(context, articleJsonSrc);
+    _articleFuture = ApiConst.client.getTopArticles();
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<JsonData>(
+    return FutureBuilder<ApiResponse>(
       future: _articleFuture,
-      builder: (BuildContext context, AsyncSnapshot<JsonData> snapshot) {
-        if (snapshot.hasError) {
+      builder: (BuildContext context, AsyncSnapshot<ApiResponse> snapshot) {
+        if (snapshot.hasError || snapshot.data?.status == 'error') {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.65,
+            height: MediaQuery.of(context).size.height * 0.55,
             child: const ErrorCard(),
           );
         }
@@ -46,7 +47,7 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
                 SizedBox(
                   height: 290.0,
                   child: ArticlesVertical(
-                    snapshot.data!['main_articles'],
+                    snapshot.data!.articles.sublist(0, 10),
                     imgHeight: 150,
                     imgWidth: 250,
                     boxWidth: 240,
@@ -61,7 +62,7 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
                 SizedBox(
                   height: 400.0,
                   child: ArticlesHorizontal(
-                    snapshot.data!['half_articles'],
+                    snapshot.data!.articles.sublist(11, 14),
                     length: 3,
                     imgHeight: 110,
                     imgWidth: 150,
@@ -74,7 +75,7 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
                 SizedBox(
                   height: 600.0,
                   child: ArticlesMatrix(
-                    snapshot.data!['last_articles'],
+                    snapshot.data!.articles.sublist(15, 19),
                     length: 4,
                     columnCount: 2,
                     imgWidth: 200,
@@ -85,7 +86,10 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
             ),
           );
         }
-        return const LoadingPage();
+        return const Padding(
+          padding: EdgeInsets.only(top: 16.0),
+          child: LoadingPage(),
+        );
       },
     );
   }

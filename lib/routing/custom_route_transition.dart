@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyRouteTransition extends PageRouteBuilder {
   final Widget page;
 
-  MyRouteTransition({required this.page})
+  MyRouteTransition(this.page)
       : super(
           pageBuilder: (_, __, ___) {
             return page;

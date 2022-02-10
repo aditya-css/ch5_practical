@@ -1,8 +1,5 @@
-import 'package:ch5_practical/article_pages/section_header_widget.dart';
-import 'package:ch5_practical/custom_cards/matrix_article_card.dart';
-import 'package:ch5_practical/custom_error_card.dart';
 import 'package:ch5_practical/extensions.dart';
-import 'package:ch5_practical/loading_page.dart';
+import 'package:ch5_practical/networking/models/article_model.dart';
 import 'package:ch5_practical/routing/navigation_service.dart';
 import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
@@ -19,21 +16,19 @@ class ArticleDetailPage extends StatefulWidget {
 }
 
 class _ArticleDetailPageState extends State<ArticleDetailPage> {
-  JsonData get _articleData => widget.data['data'];
+  Article get _articleData => widget.data['data'];
 
   String get _tag => widget.data['tag'];
 
-  String get _author => 'Written by ' + (_articleData['author'] ?? 'unknown');
+  String get _author => 'Written by ' + (_articleData.author ?? 'unknown');
 
-  String get _body => _articleData['body'].toString().isEmpty
-      ? 'No Body Found.'
-      : _articleData['body'];
+  String get _body => _articleData.content ?? 'No Body Found.';
 
   late final Future<JsonData> _articleFuture;
 
   @override
   void didChangeDependencies() {
-    _articleFuture = loadJsonData(context, articleJsonSrc);
+    // _articleFuture = loadJsonData(context, articleJsonSrc);
     super.didChangeDependencies();
   }
 
@@ -67,8 +62,8 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                   children: [
                     Hero(
                       tag: _tag,
-                      child: Image.asset(
-                        _articleData['image_url'],
+                      child: Image.network(
+                        _articleData.urlToImage,
                         fit: BoxFit.cover,
                         height: 200,
                         width: MediaQuery.of(context).size.width,
@@ -79,7 +74,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                       child: Column(
                         children: [
                           Text(
-                            _articleData['title'],
+                            _articleData.title,
                             softWrap: true,
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
@@ -102,7 +97,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                 flex: 1,
                                 child: Text(
                                   TimeAgo(
-                                    _articleData['published_date'],
+                                    _articleData.publishedAt,
                                   ).calculate,
                                   style: TextStyle(
                                     color: Colors.grey.shade500,
@@ -120,7 +115,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                             ],
                           ),
                           Text(_body, overflow: TextOverflow.fade),
-                          FutureBuilder(
+                          /*FutureBuilder(
                             future: _articleFuture,
                             builder: (BuildContext context,
                                 AsyncSnapshot<JsonData> snapshot) {
@@ -154,7 +149,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               }
                               return const LoadingPage(showHalf: true);
                             },
-                          ),
+                          ),*/
                           Column(
                             children: [
                               SizedBox(

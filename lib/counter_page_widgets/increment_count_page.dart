@@ -46,7 +46,7 @@ class _IncrementCountState extends State<IncrementCount> with RouteAware {
   void didPush() {
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) => _colorChanger(
-        Theme.of(context).colorScheme.secondaryVariant,
+        Theme.of(context).colorScheme.secondaryContainer,
       ),
     );
   }

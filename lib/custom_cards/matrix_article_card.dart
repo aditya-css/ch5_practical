@@ -1,6 +1,9 @@
 import 'dart:math' show Random;
 
+import 'package:ch5_practical/custom_error_card.dart';
 import 'package:ch5_practical/extensions.dart';
+import 'package:ch5_practical/loading_image_widget.dart';
+import 'package:ch5_practical/networking/models/article_model.dart';
 import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +21,7 @@ class ArticlesMatrix extends StatelessWidget {
   final double imgHeight, imgWidth;
   final int length, columnCount;
   final bool replacePage;
-  final List data;
+  final List<Article> data;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +35,13 @@ class ArticlesMatrix extends StatelessWidget {
       ),
       itemCount: length,
       itemBuilder: (context, index) {
-        String _tag =
-            '$index' + data[index]['image_url'] + '${Random().nextInt(1000)}';
+        String _tag = Random().nextInt(1000).toString();
         return GestureDetector(
           onTap: () => handleArticleNavigation(
-            {'data': data[index], 'tag': _tag},
+            <String, dynamic>{
+              'data': data[index],
+              'tag': _tag,
+            },
             replacePage: replacePage,
           ),
           child: Hero(
@@ -46,24 +51,35 @@ class ArticlesMatrix extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    data[index]['image_url'],
+                  Image.network(
+                    data[index].urlToImage,
                     fit: BoxFit.cover,
                     width: imgWidth,
                     height: imgHeight,
+                    loadingBuilder:
+                        (_, Widget child, ImageChunkEvent? progress) {
+                      if (progress == null) return child;
+                      return LoadingImage(width: imgWidth, height: imgHeight);
+                    },
+                    errorBuilder: (_, __, ___) {
+                      return Container(
+                        width: imgWidth,
+                        height: imgHeight,
+                        color: Theme.of(context).colorScheme.error,
+                        child: const ErrorCard(),
+                      );
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
-                      TimeAgo(
-                        data[index]['published_date'],
-                      ).calculate,
+                      TimeAgo(data[index].publishedAt).calculate,
                       style: Theme.of(context).textTheme.caption,
                     ),
                   ),
                   Expanded(
                     child: Text(
-                      data[index]['title'],
+                      data[index].title,
                       maxLines: 3,
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
@@ -76,7 +92,7 @@ class ArticlesMatrix extends StatelessWidget {
                   const SizedBox(height: 8),
                   Expanded(
                     child: Text(
-                      data[index]['body'],
+                      data[index].description,
                       maxLines: 2,
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
