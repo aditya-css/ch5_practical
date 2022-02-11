@@ -22,12 +22,14 @@ class SafeImageLoad extends StatelessWidget {
             width: width,
             child: Material(
               type: MaterialType.card,
+              color: Colors.grey.shade300,
               child: Center(
                 child: FittedBox(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Icon(Icons.image_not_supported),
+                      SizedBox(height: 8.0),
                       Text(
                         'No Image Found.',
                         textAlign: TextAlign.center,
