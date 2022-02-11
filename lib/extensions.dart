@@ -11,9 +11,12 @@ extension SimpleDialogOptionsExtension on SampleDialogOptions {
   }
 }
 
-extension TimeAgo on String {
+extension TimeAgo on String? {
   String get calculate {
-    String date = this;
+    String? date = this;
+    if (date == null) {
+      return 'no date';
+    }
     DateTime _formattedDate = DateTime.parse(date.split('T')[0]);
     Duration _diff = DateTime.now().difference(_formattedDate);
     if (_diff.inDays > 365) {

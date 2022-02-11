@@ -12,8 +12,6 @@ class CategoryFuturePage extends StatefulWidget {
 }
 
 class _CategoryFuturePageState extends State<CategoryFuturePage> {
-  String get _categoryJsonSrc => 'assets/dummy_data/categories.json';
-
   late final Future<JsonData> _categoryFuture;
 
   Future<JsonData> loadJsonData(String source) async {
@@ -25,7 +23,7 @@ class _CategoryFuturePageState extends State<CategoryFuturePage> {
 
   @override
   void didChangeDependencies() {
-    _categoryFuture = loadJsonData(_categoryJsonSrc);
+    _categoryFuture = loadJsonData(categoryJsonSrc);
     super.didChangeDependencies();
   }
 

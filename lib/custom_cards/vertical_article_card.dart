@@ -62,9 +62,7 @@ class ArticlesVertical extends StatelessWidget {
                             style: const TextStyle(fontSize: 14),
                           ),
                           Text(
-                            (data[index].publishedAt == null)
-                                ? 'no date'
-                                : TimeAgo(data[index].publishedAt!).calculate,
+                            TimeAgo(data[index].publishedAt).calculate,
                             style: TextStyle(
                               color: Colors.grey.shade500,
                               fontSize: 14,

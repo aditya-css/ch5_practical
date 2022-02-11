@@ -14,8 +14,8 @@ class ApiResponse {
     required this.status,
     this.code,
     this.message,
-    required this.totalResults,
-    required this.articles,
+    this.totalResults,
+    this.articles,
   });
 
   factory ApiResponse.fromJson(Map<String, dynamic> json) =>
