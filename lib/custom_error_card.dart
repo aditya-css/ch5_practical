@@ -8,27 +8,31 @@ class ErrorCard extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              'SORRY',
-              style: TextStyle(
-                color: Colors.black12,
-                fontSize: 48,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Courier',
+        FittedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(
+                'SORRY',
+                style: TextStyle(
+                  color: Colors.black12,
+                  fontSize: 48,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Courier',
+                ),
               ),
-            ),
-            Icon(
-              Icons.info,
-              color: Colors.black12,
-              size: 32,
-            ),
-          ],
+              Icon(
+                Icons.info,
+                color: Colors.black12,
+                size: 32,
+              ),
+            ],
+          ),
         ),
         const Text(
           'Failed to retrieve data.',
+          softWrap: true,
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.grey,
             fontSize: 16,

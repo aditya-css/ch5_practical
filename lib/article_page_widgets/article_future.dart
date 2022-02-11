@@ -1,4 +1,4 @@
-import 'package:ch5_practical/article_pages/section_header_widget.dart';
+import 'package:ch5_practical/article_page_widgets/section_header_widget.dart';
 import 'package:ch5_practical/custom_cards/horizontal_article_card.dart';
 import 'package:ch5_practical/custom_cards/matrix_article_card.dart';
 import 'package:ch5_practical/custom_cards/vertical_article_card.dart';
@@ -30,12 +30,19 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
       future: _articleFuture,
       builder: (BuildContext context, AsyncSnapshot<ApiResponse> snapshot) {
         if (snapshot.hasError || snapshot.data?.status == 'error') {
+          debugPrint(snapshot.data?.message);
           return SizedBox(
             height: MediaQuery.of(context).size.height * 0.55,
             child: const ErrorCard(),
           );
         }
         if (snapshot.hasData) {
+          if (snapshot.data!.status == 'error') {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.55,
+              child: const ErrorCard(),
+            );
+          }
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -45,9 +52,9 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
                   title: 'Main Articles',
                 ),
                 SizedBox(
-                  height: 290.0,
+                  height: 300.0,
                   child: ArticlesVertical(
-                    snapshot.data!.articles.sublist(0, 10),
+                    snapshot.data!.articles!.sublist(0, 10),
                     imgHeight: 150,
                     imgWidth: 250,
                     boxWidth: 240,
@@ -60,11 +67,11 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
                   title: 'You have not finished reading',
                 ),
                 SizedBox(
-                  height: 400.0,
+                  height: 435.0,
                   child: ArticlesHorizontal(
-                    snapshot.data!.articles.sublist(11, 14),
+                    snapshot.data!.articles!.sublist(11, 14),
                     length: 3,
-                    imgHeight: 110,
+                    imgHeight: 128,
                     imgWidth: 150,
                   ),
                 ),
@@ -75,7 +82,7 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
                 SizedBox(
                   height: 600.0,
                   child: ArticlesMatrix(
-                    snapshot.data!.articles.sublist(15, 19),
+                    snapshot.data!.articles!.sublist(15, 19),
                     length: 4,
                     columnCount: 2,
                     imgWidth: 200,

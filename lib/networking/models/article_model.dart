@@ -4,10 +4,10 @@ part 'article_model.g.dart';
 
 @JsonSerializable()
 class Article {
-  late final Map<String, dynamic> source;
+  late final Map source;
   late final String? author, content;
-  late final String title, description;
-  late final String url, urlToImage, publishedAt;
+  late final String? title, description;
+  late final String? url, urlToImage, publishedAt;
 
   Article({
     required this.source,

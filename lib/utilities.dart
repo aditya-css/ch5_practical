@@ -1,4 +1,4 @@
-import 'package:ch5_practical/article_pages/article_details_page.dart';
+import 'package:ch5_practical/article_page_widgets/article_details_page.dart';
 import 'package:ch5_practical/routing/navigation_service.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +38,8 @@ int get favouriteIndex => 2;
 int get settingsIndex => 3;
 
 String get title => 'Best Folk Medicine';
+
+String get categoryJsonSrc => 'assets/dummy_data/categories.json';
 
 String get cartoonSrc => 'assets/images/zoey.png';
 

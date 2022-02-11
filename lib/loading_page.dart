@@ -1,3 +1,4 @@
+import 'package:ch5_practical/custom_shimmer_effect.dart';
 import 'package:flutter/material.dart';
 
 class LoadingPage extends StatefulWidget {
@@ -8,27 +9,10 @@ class LoadingPage extends StatefulWidget {
   State<LoadingPage> createState() => _LoadingPageState();
 }
 
-class _LoadingPageState extends State<LoadingPage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<Color?> _animStart;
-  late Animation<Color?> _animEnd;
-
-  ShaderMask _buildShaderMask(Widget child) {
-    return ShaderMask(
-      blendMode: BlendMode.srcATop,
-      shaderCallback: (rect) => LinearGradient(
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight,
-        colors: [_animStart.value!, _animEnd.value!],
-      ).createShader(rect),
-      child: child,
-    );
-  }
-
+class _LoadingPageState extends State<LoadingPage> {
   Size get _size => MediaQuery.of(context).size;
 
-  Widget get _textBox => _buildShaderMask(
+  Widget get _textBox => ShimmerEffect(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -53,7 +37,7 @@ class _LoadingPageState extends State<LoadingPage>
         ),
       );
 
-  Widget get _imageBox => _buildShaderMask(
+  Widget get _imageBox => ShimmerEffect(
         Container(
           height: _size.width * 0.4,
           width: _size.width * 0.4,
@@ -61,7 +45,7 @@ class _LoadingPageState extends State<LoadingPage>
         ),
       );
 
-  Widget get _catTextBox => _buildShaderMask(
+  Widget get _catTextBox => ShimmerEffect(
         Container(
           height: 55,
           width: _size.width * 0.4,
@@ -110,35 +94,6 @@ class _LoadingPageState extends State<LoadingPage>
           ),
         ],
       );
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1500),
-    )
-      ..addListener(() {
-        setState(() {});
-      })
-      ..repeat(reverse: true);
-
-    _animStart = ColorTween(
-      begin: Colors.grey.withOpacity(0.3),
-      end: Colors.grey.withOpacity(0.8),
-    ).animate(_controller);
-
-    _animEnd = ColorTween(
-      begin: Colors.grey.withOpacity(0.8),
-      end: Colors.grey.withOpacity(0.3),
-    ).animate(_controller);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
