@@ -11,8 +11,8 @@ iOS: (https://apps.apple.com/in/app/best-folk-medicine/id1492230003)
 ## My Implementation
 
 # Ch5 Practical
-![ui showcase](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/show.gif) ![ui showcase](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/loading.gif) ![error](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/error.png)
-
+![ui showcase](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/show.gif) ![ui showcase](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/loading.gif) 
+<img alt="error" src="https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/error.png" height=620 width=280/>
 
 # Ch6 Practical
 ## Reference
@@ -37,4 +37,5 @@ Dribbble: (https://dribbble.com/shots/7119496-Welcome-Screen-mobile-app-concep)
 ## UI
 ![article_fetch](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/p8.gif)
 
-![image_load](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/image_load.png) ![image_error](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/image_load.png) ![image_notFound](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/image_notFound.png)
+<img alt="image_load" src="https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/image_load.png" height=600 width=250/> <img alt="image_error" src="https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/image_error.png" height=600 width=250/> <img alt="image_notFound" src="https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/image_notFound.png" height=600 width=250/>
+
