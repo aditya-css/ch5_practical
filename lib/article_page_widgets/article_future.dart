@@ -29,8 +29,7 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
     return FutureBuilder<ApiResponse>(
       future: _articleFuture,
       builder: (BuildContext context, AsyncSnapshot<ApiResponse> snapshot) {
-        if (snapshot.hasError || snapshot.data?.status == 'error') {
-          debugPrint(snapshot.data?.message);
+        if (snapshot.hasError) {
           return SizedBox(
             height: MediaQuery.of(context).size.height * 0.55,
             child: const ErrorCard(),

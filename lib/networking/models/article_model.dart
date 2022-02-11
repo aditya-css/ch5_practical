@@ -13,11 +13,11 @@ class Article {
     required this.source,
     this.author,
     this.content,
-    required this.title,
-    required this.description,
-    required this.url,
-    required this.urlToImage,
-    required this.publishedAt,
+    this.title,
+    this.description,
+    this.url,
+    this.urlToImage,
+    this.publishedAt,
   });
 
   factory Article.fromJson(Map<String, dynamic> json) =>

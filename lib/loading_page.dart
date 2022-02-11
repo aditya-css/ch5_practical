@@ -10,7 +10,7 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-  Size get _size => MediaQuery.of(context).size;
+  double get _width4 => MediaQuery.of(context).size.width * 0.4;
 
   Widget get _textBox => ShimmerEffect(
         Column(
@@ -39,8 +39,8 @@ class _LoadingPageState extends State<LoadingPage> {
 
   Widget get _imageBox => ShimmerEffect(
         Container(
-          height: _size.width * 0.4,
-          width: _size.width * 0.4,
+          height: _width4,
+          width: _width4,
           color: Colors.white,
         ),
       );
@@ -48,7 +48,7 @@ class _LoadingPageState extends State<LoadingPage> {
   Widget get _catTextBox => ShimmerEffect(
         Container(
           height: 55,
-          width: _size.width * 0.4,
+          width: _width4,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.white, width: 3),
           ),
@@ -70,7 +70,7 @@ class _LoadingPageState extends State<LoadingPage> {
         children: [
           _imageBox,
           const SizedBox(height: 8.0),
-          SizedBox(height: 30, width: _size.width * 0.4, child: _textBox),
+          SizedBox(height: 30, width: _width4, child: _textBox),
         ],
       );
 
@@ -81,7 +81,7 @@ class _LoadingPageState extends State<LoadingPage> {
           const SizedBox(width: 8.0),
           SizedBox(
             height: 140,
-            width: _size.width * 0.40,
+            width: _width4,
             child: Column(
               children: [
                 _textBox,

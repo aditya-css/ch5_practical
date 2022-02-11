@@ -63,9 +63,7 @@ class ArticlesMatrix extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: Text(
-                              (data[index].publishedAt == null)
-                                  ? 'no date'
-                                  : TimeAgo(data[index].publishedAt!).calculate,
+                              TimeAgo(data[index].publishedAt).calculate,
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ),

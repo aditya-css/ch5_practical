@@ -1,6 +1,9 @@
 import 'package:ch5_practical/article_page_widgets/safe_network_image_widget.dart';
 import 'package:ch5_practical/article_page_widgets/section_header_widget.dart';
+import 'package:ch5_practical/custom_cards/matrix_article_card.dart';
+import 'package:ch5_practical/custom_error_card.dart';
 import 'package:ch5_practical/extensions.dart';
+import 'package:ch5_practical/loading_page.dart';
 import 'package:ch5_practical/networking/api_constants.dart';
 import 'package:ch5_practical/networking/models/api_response_model.dart';
 import 'package:ch5_practical/networking/models/article_model.dart';
@@ -8,10 +11,6 @@ import 'package:ch5_practical/routing/navigation_service.dart';
 import 'package:ch5_practical/utilities.dart';
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
-
-import '../custom_cards/matrix_article_card.dart';
-import '../custom_error_card.dart';
-import '../loading_page.dart';
 
 class ArticleDetailPage extends StatefulWidget {
   const ArticleDetailPage(this.data, {Key? key}) : super(key: key);
@@ -33,10 +32,6 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
 
   String get _body => _articleData.content ?? 'No Content Found.';
   String get _title => _articleData.title ?? 'No Title Found.';
-
-  String get _date => (_articleData.publishedAt == null)
-      ? 'no date'
-      : TimeAgo(_articleData.publishedAt!).calculate;
 
   late final Future<Response<ApiResponse>> _articleFuture;
 
@@ -109,7 +104,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               Flexible(
                                 flex: 1,
                                 child: Text(
-                                  _date,
+                                  TimeAgo(_articleData.publishedAt).calculate,
                                   style: TextStyle(
                                     color: Colors.grey.shade500,
                                     fontSize: 14,
