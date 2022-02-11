@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 
-class LoadingImage extends StatefulWidget {
-  const LoadingImage({
-    Key? key,
-    required this.width,
-    required this.height,
-  }) : super(key: key);
-  final double width, height;
+class ShimmerEffect extends StatefulWidget {
+  const ShimmerEffect(this.child, {Key? key}) : super(key: key);
+
+  final Widget child;
 
   @override
-  State<LoadingImage> createState() => _LoadingImageState();
+  _ShimmerEffectState createState() => _ShimmerEffectState();
 }
 
-class _LoadingImageState extends State<LoadingImage>
+class _ShimmerEffectState extends State<ShimmerEffect>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Color?> _animStart;
@@ -56,11 +53,7 @@ class _LoadingImageState extends State<LoadingImage>
         end: Alignment.centerRight,
         colors: [_animStart.value!, _animEnd.value!],
       ).createShader(rect),
-      child: Container(
-        height: widget.height,
-        width: widget.width,
-        color: Colors.white,
-      ),
+      child: widget.child,
     );
   }
 }

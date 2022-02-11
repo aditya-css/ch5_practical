@@ -1,5 +1,5 @@
-import 'package:ch5_practical/article_pages/article_future.dart';
-import 'package:ch5_practical/article_pages/category_future.dart';
+import 'package:ch5_practical/article_page_widgets/article_future.dart';
+import 'package:ch5_practical/article_page_widgets/category_future.dart';
 import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

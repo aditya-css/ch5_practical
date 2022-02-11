@@ -1,4 +1,4 @@
-import 'package:ch5_practical/article_pages/article_details_page.dart';
+import 'package:ch5_practical/article_page_widgets/article_details_page.dart';
 import 'package:ch5_practical/custom_error_card.dart';
 import 'package:ch5_practical/home_page.dart';
 import 'package:ch5_practical/routing/custom_route_transition.dart';

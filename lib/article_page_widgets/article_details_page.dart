@@ -1,8 +1,17 @@
+import 'package:ch5_practical/article_page_widgets/safe_network_image_widget.dart';
+import 'package:ch5_practical/article_page_widgets/section_header_widget.dart';
 import 'package:ch5_practical/extensions.dart';
+import 'package:ch5_practical/networking/api_constants.dart';
+import 'package:ch5_practical/networking/models/api_response_model.dart';
 import 'package:ch5_practical/networking/models/article_model.dart';
 import 'package:ch5_practical/routing/navigation_service.dart';
 import 'package:ch5_practical/utilities.dart';
+import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
+
+import '../custom_cards/matrix_article_card.dart';
+import '../custom_error_card.dart';
+import '../loading_page.dart';
 
 class ArticleDetailPage extends StatefulWidget {
   const ArticleDetailPage(this.data, {Key? key}) : super(key: key);
@@ -22,13 +31,18 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
 
   String get _author => 'Written by ' + (_articleData.author ?? 'unknown');
 
-  String get _body => _articleData.content ?? 'No Body Found.';
+  String get _body => _articleData.content ?? 'No Content Found.';
+  String get _title => _articleData.title ?? 'No Title Found.';
 
-  late final Future<JsonData> _articleFuture;
+  String get _date => (_articleData.publishedAt == null)
+      ? 'no date'
+      : TimeAgo(_articleData.publishedAt!).calculate;
+
+  late final Future<Response<ApiResponse>> _articleFuture;
 
   @override
   void didChangeDependencies() {
-    // _articleFuture = loadJsonData(context, articleJsonSrc);
+    _articleFuture = ApiConst.chopperClient.getTopNews();
     super.didChangeDependencies();
   }
 
@@ -62,9 +76,8 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                   children: [
                     Hero(
                       tag: _tag,
-                      child: Image.network(
-                        _articleData.urlToImage,
-                        fit: BoxFit.cover,
+                      child: SafeImageLoad(
+                        src: _articleData.urlToImage,
                         height: 200,
                         width: MediaQuery.of(context).size.width,
                       ),
@@ -74,7 +87,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                       child: Column(
                         children: [
                           Text(
-                            _articleData.title,
+                            _title,
                             softWrap: true,
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
@@ -87,7 +100,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                flex: 2,
+                                flex: 3,
                                 child: Text(
                                   _author,
                                   style: const TextStyle(fontSize: 14),
@@ -96,9 +109,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               Flexible(
                                 flex: 1,
                                 child: Text(
-                                  TimeAgo(
-                                    _articleData.publishedAt,
-                                  ).calculate,
+                                  _date,
                                   style: TextStyle(
                                     color: Colors.grey.shade500,
                                     fontSize: 14,
@@ -115,10 +126,10 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                             ],
                           ),
                           Text(_body, overflow: TextOverflow.fade),
-                          /*FutureBuilder(
+                          FutureBuilder<Response<ApiResponse>>(
                             future: _articleFuture,
                             builder: (BuildContext context,
-                                AsyncSnapshot<JsonData> snapshot) {
+                                AsyncSnapshot<Response<ApiResponse>> snapshot) {
                               if (snapshot.hasError) {
                                 return const SizedBox(
                                   height: 250,
@@ -126,6 +137,13 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                 );
                               }
                               if (snapshot.hasData) {
+                                if (snapshot.data!.body!.status == 'error') {
+                                  return const SizedBox(
+                                    height: 250,
+                                    child: ErrorCard(),
+                                  );
+                                }
+                                ApiResponse _data = snapshot.data!.body!;
                                 return Column(
                                   children: [
                                     const SectionHeader(
@@ -136,7 +154,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                     SizedBox(
                                       height: 600.0,
                                       child: ArticlesMatrix(
-                                        snapshot.data!['last_articles'],
+                                        _data.articles!.sublist(16, 20),
                                         replacePage: true,
                                         length: 4,
                                         columnCount: 2,
@@ -149,7 +167,8 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               }
                               return const LoadingPage(showHalf: true);
                             },
-                          ),*/
+                          ),
+                          const SizedBox(height: 16),
                           Column(
                             children: [
                               SizedBox(

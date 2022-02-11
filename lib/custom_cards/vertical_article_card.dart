@@ -1,8 +1,7 @@
 import 'dart:math' show Random;
 
-import 'package:ch5_practical/custom_error_card.dart';
+import 'package:ch5_practical/article_page_widgets/safe_network_image_widget.dart';
 import 'package:ch5_practical/extensions.dart';
-import 'package:ch5_practical/loading_image_widget.dart';
 import 'package:ch5_practical/networking/models/article_model.dart';
 import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
@@ -48,24 +47,10 @@ class ArticlesVertical extends StatelessWidget {
                 type: MaterialType.card,
                 child: Column(
                   children: [
-                    Image.network(
-                      data[index].urlToImage,
-                      fit: BoxFit.cover,
+                    SafeImageLoad(
+                      src: data[index].urlToImage,
                       width: imgWidth,
                       height: imgHeight,
-                      loadingBuilder:
-                          (_, Widget child, ImageChunkEvent? progress) {
-                        if (progress == null) return child;
-                        return LoadingImage(width: imgWidth, height: imgHeight);
-                      },
-                      errorBuilder: (_, __, ___) {
-                        return Container(
-                          width: imgWidth,
-                          height: imgHeight,
-                          color: Theme.of(context).colorScheme.error,
-                          child: const ErrorCard(),
-                        );
-                      },
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -73,11 +58,13 @@ class ArticlesVertical extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            data[index].source['name'],
+                            data[index].source['name'] ?? 'Unknown',
                             style: const TextStyle(fontSize: 14),
                           ),
                           Text(
-                            TimeAgo(data[index].publishedAt).calculate,
+                            (data[index].publishedAt == null)
+                                ? 'no date'
+                                : TimeAgo(data[index].publishedAt!).calculate,
                             style: TextStyle(
                               color: Colors.grey.shade500,
                               fontSize: 14,
@@ -90,7 +77,7 @@ class ArticlesVertical extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          data[index].title,
+                          data[index].title ?? 'No Title Found',
                           softWrap: true,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
