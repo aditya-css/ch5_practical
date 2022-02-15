@@ -57,8 +57,8 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
                     imgHeight: 150,
                     imgWidth: 250,
                     boxWidth: 240,
-                    elevation: 12,
-                    shadowColor: Colors.grey.shade400,
+                    elevation: 15,
+                    shadowColor: Colors.grey.shade200,
                   ),
                 ),
                 const SectionHeader(

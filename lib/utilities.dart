@@ -48,9 +48,6 @@ String get cartoonHandSrc => 'assets/images/zoey hand.png';
 //Enum
 enum FavouriteActions { increment, decrement }
 enum SampleDialogOptions { option1, option2 }
-enum Flavour { development, production }
-enum ScreenState { home, info }
-enum AnimSpeed { veryFast, fast, normal, slow, verySlow }
 
 //Functions
 void handleArticleNavigation(JsonData data, {bool replacePage = false}) {

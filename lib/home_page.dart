@@ -2,7 +2,6 @@ import 'package:ch5_practical/bottom_navbar_pages/favourite_bar_page.dart';
 import 'package:ch5_practical/bottom_navbar_pages/home_bar_page.dart';
 import 'package:ch5_practical/bottom_navbar_pages/settings_bar_page.dart';
 import 'package:ch5_practical/bottom_navbar_pages/store_bar_page.dart';
-import 'package:ch5_practical/flavour_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -58,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: IndexedStack(
         index: _selectedIndex,
         children: _bottomNavBarPages,
@@ -67,8 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: _onItemTapped,
         iconSize: 28,
         showUnselectedLabels: true,
-        selectedItemColor: FlavourConfig.instance.colorScheme.background,
-        unselectedItemColor: Colors.grey.shade600,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
         items: _bottomNavBarItems,
       ),
     );

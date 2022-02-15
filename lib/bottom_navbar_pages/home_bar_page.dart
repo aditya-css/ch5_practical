@@ -37,18 +37,17 @@ class _HomeBarPageState extends State<HomeBarPage> {
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Material(
-                      elevation: 12,
+                      elevation: 20,
                       shadowColor: Colors.grey.shade50,
-                      type: MaterialType.card,
                       child: TextField(
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.search_rounded,
-                            color: Colors.grey.shade400,
+                            color: Colors.grey.shade300,
                             size: 30,
                           ),
                           hintText: 'Search',
-                          hintStyle: TextStyle(color: Colors.grey.shade600),
+                          hintStyle: TextStyle(color: Colors.grey.shade500),
                           border: InputBorder.none,
                         ),
                       ),
