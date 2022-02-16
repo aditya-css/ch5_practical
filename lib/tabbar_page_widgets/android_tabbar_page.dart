@@ -1,5 +1,4 @@
 import 'package:ch5_practical/extensions.dart';
-import 'package:ch5_practical/flavour_config.dart';
 import 'package:ch5_practical/utilities.dart';
 import 'package:flutter/material.dart';
 
@@ -11,12 +10,7 @@ class AndroidTabBarPage extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: Text(
-            'SimpleDialog Title',
-            style: TextStyle(
-              color: FlavourConfig.instance.colorScheme.background,
-            ),
-          ),
+          title: const Text('SimpleDialog Title'),
           children: [
             SimpleDialogOption(
               onPressed: () => Navigator.pop(
@@ -69,12 +63,7 @@ class AndroidTabBarPage extends StatelessWidget {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
-            'AlertDialog Title',
-            style: TextStyle(
-              color: FlavourConfig.instance.colorScheme.background,
-            ),
-          ),
+          title: const Text('AlertDialog Title'),
           content: const Text('Sample content of Android AlertDialog'),
           actions: <Widget>[
             TextButton(
