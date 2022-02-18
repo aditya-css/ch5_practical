@@ -39,3 +39,6 @@ Dribbble: (https://dribbble.com/shots/7119496-Welcome-Screen-mobile-app-concep)
 
 <img alt="image_load" src="https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/image_load.png" height=600 width=250/> <img alt="image_error" src="https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/image_error.png" height=600 width=250/> <img alt="image_notFound" src="https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/image_notFound.png" height=600 width=250/>
 
+# Ch9 Practical
+## UI
+![article_fetch](https://github.com/aditya-css/ch5_practical/blob/feature/state_management/build%20showcase/p9.gif)
