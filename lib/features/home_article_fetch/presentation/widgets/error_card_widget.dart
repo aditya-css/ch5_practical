@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ErrorCard extends StatelessWidget {
-  const ErrorCard({Key? key, this.desc}) : super(key: key);
+  const ErrorCard({Key? key, this.description}) : super(key: key);
 
-  final String? desc;
+  final String? description;
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +40,9 @@ class ErrorCard extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        if (desc != null)
+        if (description != null)
           Text(
-            desc!,
+            description!,
             softWrap: true,
             textAlign: TextAlign.center,
             style: const TextStyle(
