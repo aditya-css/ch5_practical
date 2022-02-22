@@ -1,10 +1,10 @@
-import 'package:ch5_practical/core/extensions.dart';
 import 'package:ch5_practical/core/result_state_template.dart';
 import 'package:ch5_practical/core/routing/navigation_service.dart';
 import 'package:ch5_practical/core/utilities.dart';
 import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/mobx/data_fetch_store.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/error_card_widget.dart';
+import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/favourite_article_star.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/matrix_article_card.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/no_network_widget.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/safe_network_image_widget.dart';
@@ -30,9 +30,9 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
 
   String get _tag => widget.data['tag'];
 
-  ApiException get _exception => (_articleFuture.result as Failure).value;
+  ApiException get _exception => (_articleFuture!.result as Failure).value;
 
-  late final ObservableFuture<ResultState> _articleFuture;
+  ObservableFuture<ResultState>? _articleFuture;
   bool _hasNetwork = true;
 
   @override
@@ -105,7 +105,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               Flexible(
                                 flex: 1,
                                 child: Text(
-                                  TimeAgo(_articleData.publishedAt).calculate,
+                                  _articleData.publishedAt,
                                   style: TextStyle(
                                     color: Colors.grey.shade500,
                                     fontSize: 14,
@@ -114,9 +114,8 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               ),
                               Flexible(
                                 flex: 1,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.star_rate_rounded),
+                                child: FavouriteArticleStar(
+                                  article: _articleData,
                                 ),
                               ),
                             ],
