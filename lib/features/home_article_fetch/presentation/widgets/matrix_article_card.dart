@@ -22,13 +22,16 @@ class ArticlesMatrix extends StatelessWidget {
   final bool replacePage;
   final List<Article> data;
 
+  double get _gridAspectRatioMultiple => 0.145;
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: columnCount,
-        childAspectRatio: (MediaQuery.of(context).size.width / 100.0) * 0.145,
+        childAspectRatio: (MediaQuery.of(context).size.width / 100.0) *
+            _gridAspectRatioMultiple,
         mainAxisSpacing: 10.0,
         crossAxisSpacing: 10.0,
       ),

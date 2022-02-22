@@ -15,7 +15,7 @@ class NoInternet extends StatelessWidget {
             maxWidth: 150,
           ),
           child: Image.asset(
-            noNetSrc,
+            noWifiImageSrc,
             fit: BoxFit.contain,
           ),
         ),

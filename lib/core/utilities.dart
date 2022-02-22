@@ -38,7 +38,7 @@ String get title => 'Best Folk Medicine';
 
 String get categoryJsonSrc => 'assets/dummy_data/categories.json';
 
-String get noNetSrc => 'assets/images/no_wifi.png';
+String get noWifiImageSrc => 'assets/images/no_wifi.png';
 
 String get cartoonSrc => 'assets/images/zoey.png';
 

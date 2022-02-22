@@ -30,16 +30,16 @@ class _CategoryFuturePageState extends State<CategoryFuturePage> {
       future: _categoryFuture,
       builder: (BuildContext context, AsyncSnapshot<ResultState> snapshot) {
         if (snapshot.data is Success) {
-          List<String> _cats =
+          List<String> _categories =
               ((snapshot.data! as Success).value as Categories).names;
           return Container(
             height: 55,
             margin: const EdgeInsets.only(left: 16.0),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: _cats.length,
+              itemCount: _categories.length,
               itemBuilder: (_, int index) {
-                return CategoryCard(_cats[index]);
+                return CategoryCard(_categories[index]);
               },
             ),
           );
@@ -49,7 +49,8 @@ class _CategoryFuturePageState extends State<CategoryFuturePage> {
           return SizedBox(
             height: 55,
             child: ErrorCard(
-              desc: '${_exception.code ?? ''} ${_exception.message ?? ''}',
+              description:
+                  '${_exception.code ?? ''} ${_exception.message ?? ''}',
             ),
           );
         }

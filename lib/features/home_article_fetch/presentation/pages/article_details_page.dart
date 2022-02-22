@@ -138,7 +138,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                 return SizedBox(
                                   height: 250,
                                   child: ErrorCard(
-                                    desc:
+                                    description:
                                         '${_exception.code ?? ''} ${_exception.message ?? ''}',
                                   ),
                                 );
