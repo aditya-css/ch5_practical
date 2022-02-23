@@ -1,6 +1,5 @@
 import 'dart:math' show Random;
 
-import 'package:ch5_practical/core/extensions.dart';
 import 'package:ch5_practical/core/utilities.dart';
 import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/safe_network_image_widget.dart';
@@ -62,7 +61,7 @@ class ArticlesVertical extends StatelessWidget {
                             style: const TextStyle(fontSize: 14),
                           ),
                           Text(
-                            TimeAgo(data[index].publishedAt).calculate,
+                            data[index].publishedAt,
                             style: TextStyle(
                               color: Colors.grey.shade500,
                               fontSize: 14,

@@ -1,10 +1,12 @@
-import 'package:ch5_practical/core/extensions.dart';
+
 import 'package:ch5_practical/core/result_state_template.dart';
 import 'package:ch5_practical/core/routing/navigation_service.dart';
 import 'package:ch5_practical/core/utilities.dart';
+import 'package:ch5_practical/features/favourite_article_local_store/presentation/widgets/safe_memory_image_load.dart';
 import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/mobx/data_fetch_store.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/error_card_widget.dart';
+import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/favourite_article_star.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/matrix_article_card.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/no_network_widget.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/safe_network_image_widget.dart';
@@ -29,10 +31,11 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
   Article get _articleData => widget.data['data'];
 
   String get _tag => widget.data['tag'];
+  
+  ApiException get _exception => (_articleFuture!.result as Failure).value;
 
-  ApiException get _exception => (_articleFuture.result as Failure).value;
+  ObservableFuture<ResultState>? _articleFuture;
 
-  late final ObservableFuture<ResultState> _articleFuture;
   bool _hasNetwork = true;
 
   @override
@@ -72,11 +75,17 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                   children: [
                     Hero(
                       tag: _tag,
-                      child: SafeImageLoad(
-                        src: _articleData.urlToImage,
-                        height: 200,
-                        width: MediaQuery.of(context).size.width,
-                      ),
+                      child: (_hasNetwork)
+                          ? SafeImageLoad(
+                              src: _articleData.urlToImage,
+                              height: 200,
+                              width: MediaQuery.of(context).size.width,
+                            )
+                          : SafeMemoryImageLoad(
+                              imageBytes: _articleData.imgBytes,
+                              height: 200,
+                              width: MediaQuery.of(context).size.width,
+                            ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -105,7 +114,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               Flexible(
                                 flex: 1,
                                 child: Text(
-                                  TimeAgo(_articleData.publishedAt).calculate,
+                                  _articleData.publishedAt,
                                   style: TextStyle(
                                     color: Colors.grey.shade500,
                                     fontSize: 14,
@@ -114,64 +123,64 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               ),
                               Flexible(
                                 flex: 1,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.star_rate_rounded),
+                                child: FavouriteArticleStar(
+                                  article: _articleData,
                                 ),
                               ),
                             ],
                           ),
                           Text(_articleData.content,
                               overflow: TextOverflow.fade),
-                          FutureBuilder<ResultState>(
-                            future: _articleFuture,
-                            builder: (BuildContext context,
-                                AsyncSnapshot<ResultState> snapshot) {
-                              if (!_hasNetwork) {
-                                return SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.35,
-                                  child: const NoInternet(),
-                                );
-                              }
-                              if (snapshot.data is Failure) {
-                                return SizedBox(
-                                  height: 250,
-                                  child: ErrorCard(
-                                    description:
-                                        '${_exception.code ?? ''} ${_exception.message ?? ''}',
-                                  ),
-                                );
-                              }
-                              if (snapshot.data is Success) {
-                                List<Article> _articles =
-                                    (snapshot.data as Success<List<Article>>)
-                                        .value;
-                                return Column(
-                                  children: [
-                                    const SectionHeader(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 16.0),
-                                      title: 'Similar Articles',
+                          if (_hasNetwork)
+                            FutureBuilder<ResultState>(
+                              future: _articleFuture,
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<ResultState> snapshot) {
+                                if (!_hasNetwork) {
+                                  return SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.35,
+                                    child: const NoInternet(),
+                                  );
+                                }
+                                if (snapshot.data is Failure) {
+                                  return SizedBox(
+                                    height: 250,
+                                    child: ErrorCard(
+                                      description:
+                                          '${_exception.code ?? ''} ${_exception.message ?? ''}',
                                     ),
-                                    SizedBox(
-                                      height: 600.0,
-                                      child: ArticlesMatrix(
-                                        _articles.sublist(16, 20),
-                                        replacePage: true,
-                                        length: 4,
-                                        columnCount: 2,
-                                        imgWidth: 200,
-                                        imgHeight: 120,
+                                  );
+                                }
+                                if (snapshot.data is Success) {
+                                  List<Article> _articles =
+                                      (snapshot.data as Success<List<Article>>)
+                                          .value;
+                                  return Column(
+                                    children: [
+                                      const SectionHeader(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 16.0),
+                                        title: 'Similar Articles',
                                       ),
-                                    ),
-                                  ],
-                                );
-                              }
-                              return const ArticleLoadingShimmer(
-                                  showHalf: true);
-                            },
-                          ),
+                                      SizedBox(
+                                        height: 600.0,
+                                        child: ArticlesMatrix(
+                                          _articles.sublist(16, 20),
+                                          replacePage: true,
+                                          length: 4,
+                                          columnCount: 2,
+                                          imgWidth: 200,
+                                          imgHeight: 120,
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
+                                return const ArticleLoadingShimmer(
+                                    showHalf: true);
+                              },
+                            ),
                           const SizedBox(height: 16),
                           Column(
                             children: [

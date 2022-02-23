@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ErrorCard extends StatelessWidget {
-  const ErrorCard({Key? key, this.description}) : super(key: key);
+  const ErrorCard({
+    Key? key,
+    this.description,
+    this.head = 'SORRY',
+    this.title = 'Failed to retrieve data.',
+  }) : super(key: key);
 
-  final String? description;
+  final String? head, title, description;
 
   @override
   Widget build(BuildContext context) {
@@ -13,17 +18,17 @@ class ErrorCard extends StatelessWidget {
         FittedBox(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Text(
-                'SORRY',
-                style: TextStyle(
+                head!,
+                style: const TextStyle(
                   color: Colors.black12,
                   fontSize: 48,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Courier',
                 ),
               ),
-              Icon(
+              const Icon(
                 Icons.info,
                 color: Colors.black12,
                 size: 32,
@@ -31,23 +36,26 @@ class ErrorCard extends StatelessWidget {
             ],
           ),
         ),
-        const Text(
-          'Failed to retrieve data.',
+        Text(
+          title!,
           softWrap: true,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.grey,
             fontSize: 16,
           ),
         ),
         if (description != null)
-          Text(
-            description!,
-            softWrap: true,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 16,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              description!,
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.grey,
+                fontSize: 16,
+              ),
             ),
           ),
       ],

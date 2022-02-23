@@ -1,6 +1,5 @@
 import 'dart:math' show Random;
 
-import 'package:ch5_practical/core/extensions.dart';
 import 'package:ch5_practical/core/utilities.dart';
 import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/safe_network_image_widget.dart';
@@ -68,7 +67,7 @@ class ArticlesHorizontal extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 4.0),
                                 child: Text(
-                                  TimeAgo(data[index].publishedAt).calculate,
+                                  data[index].publishedAt,
                                   style: Theme.of(context).textTheme.caption,
                                 ),
                               ),

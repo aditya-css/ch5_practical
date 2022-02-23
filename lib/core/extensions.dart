@@ -11,13 +11,30 @@ extension SimpleDialogOptionsExtension on SampleDialogOptions {
   }
 }
 
+extension PrintMyException on String {
+  String get message {
+    String _exceptionMsg = this;
+    if (_exceptionMsg.contains(':')) {
+      _exceptionMsg = _exceptionMsg.split(':')[1];
+    }
+    return _exceptionMsg;
+  }
+}
+
 extension TimeAgo on String? {
   String get calculate {
     String? date = this;
     if (date == null) {
       return 'no date';
     }
-    DateTime _formattedDate = DateTime.parse(date.split('T')[0]);
+
+    DateTime _formattedDate;
+    try {
+      _formattedDate = DateTime.parse(date.split('T')[0]);
+    } on FormatException {
+      return date;
+    }
+
     Duration _diff = DateTime.now().difference(_formattedDate);
     if (_diff.inDays > 365) {
       return "${(_diff.inDays / 365).floor()} ${(_diff.inDays / 365).floor() == 1 ? "year" : "years"} ago";

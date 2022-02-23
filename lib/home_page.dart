@@ -1,4 +1,4 @@
-import 'package:ch5_practical/features/favourite_counter_sync/presentation/pages/favourite_bar_page.dart';
+import 'package:ch5_practical/features/favourite_article_local_store/presentation/pages/favourite_bar_page.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/mobx/bottom_nav_index_store.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/pages/home_bar_page.dart';
 import 'package:ch5_practical/features/settings_app_permission/presentation/pages/settings_bar_page.dart';
