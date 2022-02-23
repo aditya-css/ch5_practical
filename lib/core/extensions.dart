@@ -11,6 +11,16 @@ extension SimpleDialogOptionsExtension on SampleDialogOptions {
   }
 }
 
+extension PrintMyException on String {
+  String get message {
+    String _exceptionMsg = this;
+    if (_exceptionMsg.contains(':')) {
+      _exceptionMsg = _exceptionMsg.split(':')[1];
+    }
+    return _exceptionMsg;
+  }
+}
+
 extension TimeAgo on String? {
   String get calculate {
     String? date = this;

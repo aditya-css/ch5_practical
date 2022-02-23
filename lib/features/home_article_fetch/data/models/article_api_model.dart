@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:ch5_practical/core/db_const.dart';
 import 'package:ch5_practical/core/extensions.dart';
 import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
@@ -8,6 +10,7 @@ class ArticleApiModel extends Article {
   final String? writer, body;
   final String? heading, desc;
   final String? link, imgUrl;
+  final Uint8List? imgBinary;
   final String date;
 
   ArticleApiModel({
@@ -19,6 +22,7 @@ class ArticleApiModel extends Article {
     this.desc,
     this.link,
     this.imgUrl,
+    this.imgBinary,
     required this.date,
   }) : super(
           id: aid,
@@ -27,6 +31,7 @@ class ArticleApiModel extends Article {
           title: heading ?? 'No Title Found.',
           description: desc ?? 'No Description Found.',
           urlToImage: imgUrl,
+          imgBytes: imgBinary,
           publishedAt: date,
           content: body ?? 'No Content Found.',
         );
@@ -41,6 +46,7 @@ class ArticleApiModel extends Article {
         desc: json['description'] as String?,
         link: json['url'] as String?,
         imgUrl: json['urlToImage'] as String?,
+        imgBinary: json['imageBlob'] as Uint8List?,
         date: TimeAgo(json['publishedAt']).calculate,
       );
 
@@ -50,6 +56,7 @@ class ArticleApiModel extends Article {
         DBConst.colDesc: desc,
         DBConst.colBody: body,
         DBConst.colImg: imgUrl,
+        DBConst.colImgBlob: imgBinary,
         DBConst.colDate: date
       };
 }

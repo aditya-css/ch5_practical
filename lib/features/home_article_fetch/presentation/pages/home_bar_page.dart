@@ -1,11 +1,10 @@
-import 'package:ch5_practical/core/db_const.dart';
 import 'package:ch5_practical/core/utilities.dart';
+import 'package:ch5_practical/features/home_article_fetch/presentation/mobx/bottom_nav_index_store.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/pages/article_future.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/pages/category_future.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:provider/provider.dart';
 
 class HomeBarPage extends StatelessWidget {
   const HomeBarPage({Key? key}) : super(key: key);
@@ -60,14 +59,9 @@ class HomeBarPage extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
-                  onPressed: () async {
-                    String path =
-                        join(await getDatabasesPath(), DBConst.dbName);
-                    await deleteDatabase(path);
-
-                    debugPrint('done');
-                  },
-                  // context.read<BottomNavStore>().onItemTap(storeIndex),
+                  onPressed: () =>
+                      Provider.of<BottomNavStore>(context, listen: false)
+                          .onItemTap(storeIndex),
                   child: const Icon(CupertinoIcons.cart_fill),
                   tooltip: 'Store',
                 ),

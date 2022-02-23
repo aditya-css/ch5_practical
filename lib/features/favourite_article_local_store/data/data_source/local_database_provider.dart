@@ -17,8 +17,11 @@ class LocalDatabaseProvider {
   Future<Database> getDatabaseInstance() async {
     String dir = await getDatabasesPath();
     String path = join(dir, DBConst.dbName);
-    return await openDatabase(path,
-        version: DBConst.dbVersion, onCreate: _createDatabase);
+    return await openDatabase(
+      path,
+      version: DBConst.dbVersion,
+      onCreate: _createDatabase,
+    );
   }
 
   Future<void> _createDatabase(Database db, int version) async {
@@ -30,6 +33,7 @@ class LocalDatabaseProvider {
       "${DBConst.colDesc} TEXT,"
       "${DBConst.colBody} TEXT,"
       "${DBConst.colImg} TEXT,"
+      "${DBConst.colImgBlob} BLOB,"
       "${DBConst.colDate} TEXT"
       ")",
     );

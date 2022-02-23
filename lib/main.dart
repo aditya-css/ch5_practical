@@ -5,8 +5,8 @@ import 'package:ch5_practical/core/utilities.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/data/data_source/local_database_provider.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/data/repositories/data_local_store_repo_impl.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/delete_all_fav_article_usecase.dart';
+import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/find_fav_article_usecase.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/get_all_fav_articles_usecase.dart';
-import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/is_fav_article_usecase.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/remove_fav_article_usecase.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/save_fav_article_usecase.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/presentation/bloc/db_bloc.dart';
@@ -62,13 +62,13 @@ class MyApp extends StatelessWidget {
             removeFavArticle: RemoveFavArticle(
               context.read<DataLocalStoreRepository>(),
             ),
-            isFavArticle: IsFavArticle(
+            isFavArticle: FindFavArticle(
               context.read<DataLocalStoreRepository>(),
             ),
           ),
         ),
-        BlocProvider<DBloc>(
-          create: (BuildContext context) => DBloc(
+        BlocProvider<DatabaseBloc>(
+          create: (BuildContext context) => DatabaseBloc(
             starBloc: context.read<StarBloc>(),
             getAllFavArticles: GetAllFavArticles(
               context.read<DataLocalStoreRepository>(),

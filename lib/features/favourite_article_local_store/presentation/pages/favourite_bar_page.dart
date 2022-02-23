@@ -5,9 +5,9 @@ import 'package:ch5_practical/core/utilities.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/presentation/bloc/db_bloc.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/presentation/bloc/db_bloc_event.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/presentation/bloc/db_bloc_state.dart';
+import 'package:ch5_practical/features/favourite_article_local_store/presentation/widgets/safe_memory_image_load.dart';
 import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/error_card_widget.dart';
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/safe_network_image_widget.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/shimmer_widgets/news_horizontal_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,12 +33,10 @@ class FavouriteBarPage extends StatelessWidget {
           Padding(
             padding:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
-            child: BlocBuilder<DBloc, DBState>(
-              /*buildWhen: (DBState previous, DBState current) =>
-              previous.runtimeType != current.runtimeType,*/
-              builder: (_, DBState state) {
+            child: BlocBuilder<DatabaseBloc, DatabaseState>(
+              builder: (_, DatabaseState state) {
                 if (state is Initial) {
-                  context.read<DBloc>().add(const GetAllFavourites());
+                  context.read<DatabaseBloc>().add(const GetAllFavourites());
                 }
                 if (state is Loading) {
                   return Padding(
@@ -60,7 +58,7 @@ class FavouriteBarPage extends StatelessWidget {
                       child: ErrorCard(
                         head: state.exclaim,
                         title: state.title,
-                        desc: state.message,
+                        description: state.message,
                       ),
                     ),
                   );
@@ -101,8 +99,9 @@ class FavouriteBarPage extends StatelessWidget {
                                 ),
                               ),
                               onDismissed: (_) {
-                                context.read<DBloc>().add(
-                                    RemoveFavourite(state.data[index].id!));
+                                context.read<DatabaseBloc>().add(
+                                      RemoveFavourite(state.data[index].id!),
+                                    );
                               },
                               confirmDismiss: (_) {
                                 return showDialog<bool>(
@@ -111,7 +110,8 @@ class FavouriteBarPage extends StatelessWidget {
                                   builder: (_) => const PlatformAlertDialog(
                                     title: Text('Remove Favourite Article'),
                                     description: Text(
-                                        'Are you sure you want to remove this article?'),
+                                      'Are you sure you want to remove this article?',
+                                    ),
                                     positiveText: Text('Yes'),
                                     negativeText: Text('No'),
                                   ),
@@ -123,9 +123,8 @@ class FavouriteBarPage extends StatelessWidget {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    //TODO: save image as string and load in memory
-                                    SafeImageLoad(
-                                      src: state.data[index].urlToImage,
+                                    SafeMemoryImageLoad(
+                                      imageBytes: state.data[index].imgBytes,
                                       width: 130,
                                       height: 130,
                                     ),
@@ -133,7 +132,8 @@ class FavouriteBarPage extends StatelessWidget {
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
+                                          vertical: 8.0,
+                                        ),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -151,7 +151,8 @@ class FavouriteBarPage extends StatelessWidget {
                                             Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                      vertical: 4.0),
+                                                vertical: 4.0,
+                                              ),
                                               child: Text(
                                                 state.data[index].publishedAt,
                                                 style: Theme.of(context)
@@ -217,7 +218,9 @@ class FavouriteBarPage extends StatelessWidget {
                     ),
                   );
                   if (_shouldDelete == true) {
-                    context.read<DBloc>().add(const DeleteAllFavourites());
+                    context
+                        .read<DatabaseBloc>()
+                        .add(const DeleteAllFavourites());
                   }
                 },
                 child: const Icon(Icons.delete_outline_outlined),

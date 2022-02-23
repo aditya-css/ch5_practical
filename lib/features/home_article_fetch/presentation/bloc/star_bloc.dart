@@ -1,18 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:ch5_practical/core/result_state_template.dart';
-import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/is_fav_article_usecase.dart';
+import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/find_fav_article_usecase.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/remove_fav_article_usecase.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/save_fav_article_usecase.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/bloc/star_bloc_event.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/bloc/star_bloc_state.dart';
 
 class StarBloc extends Bloc<StarBlocEvent, StarBlocState> {
-  final IsFavArticle _find;
+  final FindFavArticle _find;
   final SaveFavArticle _save;
   final RemoveFavArticle _remove;
 
   StarBloc({
-    required IsFavArticle isFavArticle,
+    required FindFavArticle isFavArticle,
     required SaveFavArticle saveFavArticle,
     required RemoveFavArticle removeFavArticle,
   })  : _find = isFavArticle,
@@ -46,7 +46,6 @@ class StarBloc extends Bloc<StarBlocEvent, StarBlocState> {
     if (_result is Success<int>) {
       emit(StarSuccess(_result.value));
     } else {
-      // emit(const StarSuccess(double.nan));
       emit(StarFailed((_result as Failure).value.message!));
     }
   }
@@ -56,12 +55,10 @@ class StarBloc extends Bloc<StarBlocEvent, StarBlocState> {
     Emitter<StarBlocState> emit,
   ) async {
     emit(const StarLoading());
-
     final ResultState _result = await _remove(Params(id: event.id));
-    if (_result is Success<int>) {
+    if (_result is Success) {
       emit(const StarSuccess(double.nan));
     } else {
-      // emit(const StarSuccess(double.minPositive));
       emit(StarFailed((_result as Failure).value.message!));
     }
   }

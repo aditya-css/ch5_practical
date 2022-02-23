@@ -1,9 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:equatable/equatable.dart';
 
 class Article extends Equatable {
   final String source, author, publishedAt;
   final String title, description, content;
   final String? urlToImage;
+  final Uint8List? imgBytes;
   final int? id;
 
   const Article({
@@ -14,6 +17,7 @@ class Article extends Equatable {
     required this.title,
     required this.description,
     required this.urlToImage,
+    this.imgBytes,
     required this.publishedAt,
   });
 

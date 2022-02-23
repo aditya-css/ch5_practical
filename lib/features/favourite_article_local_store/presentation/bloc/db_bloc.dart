@@ -12,16 +12,16 @@ import 'package:ch5_practical/features/home_article_fetch/domain/entities/articl
 import 'package:ch5_practical/features/home_article_fetch/presentation/bloc/star_bloc.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/bloc/star_bloc_state.dart';
 
-class DBloc extends Bloc<DBEvent, DBState> {
+class DatabaseBloc extends Bloc<DatabaseEvent, DatabaseState> {
   final GetAllFavArticles _getAll;
   final DeleteAllFavArticles _deleteAll;
   final RemoveFavArticle _remove;
 
-  final StarBloc _star;
+  final StarBloc _starBloc;
 
   late final StreamSubscription _favouriteStream;
 
-  DBloc({
+  DatabaseBloc({
     required GetAllFavArticles getAllFavArticles,
     required DeleteAllFavArticles deleteAllFavArticles,
     required RemoveFavArticle removeFavArticle,
@@ -29,12 +29,12 @@ class DBloc extends Bloc<DBEvent, DBState> {
   })  : _getAll = getAllFavArticles,
         _deleteAll = deleteAllFavArticles,
         _remove = removeFavArticle,
-        _star = starBloc,
+        _starBloc = starBloc,
         super(const Initial()) {
     on<GetAllFavourites>(_mapGetAllEventToState);
     on<DeleteAllFavourites>(_mapDeleteAllEventToState);
     on<RemoveFavourite>(_mapRemoveEventToState);
-    _favouriteStream = _star.stream.listen((starState) {
+    _favouriteStream = _starBloc.stream.listen((starState) {
       if (starState is StarSuccess) {
         add(const GetAllFavourites());
       }
@@ -49,7 +49,7 @@ class DBloc extends Bloc<DBEvent, DBState> {
 
   void _mapGetAllEventToState(
     GetAllFavourites event,
-    Emitter<DBState> emit,
+    Emitter<DatabaseState> emit,
   ) async {
     emit(const Loading());
     final ResultState _result = await _getAll(NoParams());
@@ -68,7 +68,7 @@ class DBloc extends Bloc<DBEvent, DBState> {
 
   void _mapDeleteAllEventToState(
     DeleteAllFavourites event,
-    Emitter<DBState> emit,
+    Emitter<DatabaseState> emit,
   ) async {
     emit(const Loading());
     final ResultState _result = await _deleteAll(NoParams());
@@ -87,12 +87,11 @@ class DBloc extends Bloc<DBEvent, DBState> {
 
   void _mapRemoveEventToState(
     RemoveFavourite event,
-    Emitter<DBState> emit,
+    Emitter<DatabaseState> emit,
   ) async {
     emit(const Loading());
     final ResultState _result = await _remove(Params(id: event.id));
-    if (_result is Success<int>) {
-      // emit(Complete<int>(_result.value));
+    if (_result is Success) {
       emit(const Initial());
     } else {
       emit(Failed(message: (_result as Failure).value.message!));

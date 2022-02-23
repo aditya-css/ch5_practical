@@ -62,7 +62,8 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
             return SizedBox(
               height: MediaQuery.of(context).size.height * 0.55,
               child: ErrorCard(
-                desc: '${_exception.code ?? ''} ${_exception.message ?? ''}',
+                description:
+                    '${_exception.code ?? ''} ${_exception.message ?? ''}',
               ),
             );
           case FutureStatus.fulfilled:
@@ -121,7 +122,8 @@ class _ArticleFuturePageState extends State<ArticleFuturePage> {
               return SizedBox(
                 height: MediaQuery.of(context).size.height * 0.55,
                 child: ErrorCard(
-                  desc: '${_exception.code ?? ''} ${_exception.message ?? ''}',
+                  description:
+                      '${_exception.code ?? ''} ${_exception.message ?? ''}',
                 ),
               );
             }

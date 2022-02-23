@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class ErrorCard extends StatelessWidget {
   const ErrorCard({
     Key? key,
-    this.desc,
+    this.description,
     this.head = 'SORRY',
     this.title = 'Failed to retrieve data.',
   }) : super(key: key);
 
-  final String? head, title, desc;
+  final String? head, title, description;
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +45,11 @@ class ErrorCard extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        if (desc != null)
+        if (description != null)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              desc!,
+              description!,
               softWrap: true,
               textAlign: TextAlign.center,
               style: const TextStyle(

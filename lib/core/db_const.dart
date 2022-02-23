@@ -8,5 +8,6 @@ class DBConst {
   static const String colDesc = 'description';
   static const String colBody = 'content';
   static const String colImg = 'urlToImage';
+  static const String colImgBlob = 'imageBlob';
   static const String colDate = 'publishedAt';
 }
