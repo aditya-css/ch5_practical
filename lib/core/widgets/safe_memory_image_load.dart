@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/error_card_widget.dart';
+import 'package:ch5_practical/core/widgets/error_card_widget.dart';
+import 'package:ch5_practical/core/widgets/no_image_found_widget.dart';
 import 'package:flutter/material.dart';
 
 class SafeMemoryImageLoad extends StatelessWidget {
@@ -20,29 +21,7 @@ class SafeMemoryImageLoad extends StatelessWidget {
         ? SizedBox(
             height: height,
             width: width,
-            child: Material(
-              type: MaterialType.card,
-              color: Colors.grey.shade300,
-              child: Center(
-                child: FittedBox(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.image_not_supported),
-                      SizedBox(height: 8.0),
-                      Text(
-                        'No Image Found.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            child: const NoImageFound(),
           )
         : Image.memory(
             imageBytes!,

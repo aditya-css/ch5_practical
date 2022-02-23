@@ -1,4 +1,4 @@
-import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
+import 'package:ch5_practical/core/models_and_entities/article_entity.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/bloc/star_bloc.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/bloc/star_bloc_event.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/bloc/star_bloc_state.dart';
@@ -52,7 +52,7 @@ class _FavouriteArticleStarState extends State<FavouriteArticleStar> {
           );
         }
         return const Padding(
-          padding: EdgeInsets.all(4.0),
+          padding: EdgeInsets.all(6.0),
           child: SizedBox(
             height: 24,
             width: 24,

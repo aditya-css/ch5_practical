@@ -1,7 +1,7 @@
+import 'package:ch5_practical/core/models_and_entities/article_entity.dart';
 import 'package:ch5_practical/core/result_state_template.dart';
 import 'package:ch5_practical/core/usecase_template.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/domain/repositories/data_local_store_repository.dart';
-import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class SaveFavArticle implements UseCase<ResultState, ArticleParams> {

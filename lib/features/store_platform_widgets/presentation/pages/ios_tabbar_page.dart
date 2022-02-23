@@ -1,30 +1,11 @@
 import 'package:ch5_practical/core/extensions.dart';
 import 'package:ch5_practical/core/utilities.dart';
+import 'package:ch5_practical/core/widgets/platform_alert_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class IOSTabBarPage extends StatelessWidget {
   const IOSTabBarPage({Key? key}) : super(key: key);
-
-  Future<void> _buildAlertDialog(BuildContext context) async {
-    return showCupertinoDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: const Text('AlertDialog Title'),
-          content: const Text('Sample content of iOS AlertDialog'),
-          actions: [
-            CupertinoDialogAction(
-              isDefaultAction: true,
-              child: const Text('Okay!'),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   Future<SampleDialogOptions?> _buildActionSheet(BuildContext context) {
     return showCupertinoModalPopup<SampleDialogOptions>(
@@ -86,7 +67,14 @@ class IOSTabBarPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
           child: CupertinoButton.filled(
-            onPressed: () => _buildAlertDialog(context),
+            onPressed: () => showDialog<void>(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => const PlatformAlertDialog(
+                showIOSDialog: true,
+                description: Text('Sample content of iOS AlertDialog'),
+              ),
+            ),
             child: const Text('CupertinoAlertDialog'),
           ),
         ),

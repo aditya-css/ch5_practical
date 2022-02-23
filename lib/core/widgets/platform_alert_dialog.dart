@@ -1,52 +1,51 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PlatformAlertDialog extends StatelessWidget {
   const PlatformAlertDialog({
     Key? key,
-    required this.title,
+    required this.showIOSDialog,
+    this.title = const Text('AlertDialog Title'),
     required this.description,
-    required this.positiveText,
+    this.positiveText = const Text('Okay!'),
     this.negativeText,
   }) : super(key: key);
 
   final Text title, description, positiveText;
   final Text? negativeText;
-
+  final bool showIOSDialog;
   @override
   Widget build(BuildContext context) {
-    return Platform.isIOS
+    return (showIOSDialog)
         ? CupertinoAlertDialog(
             title: title,
             content: description,
             actions: <CupertinoDialogAction>[
-              CupertinoDialogAction(
-                isDefaultAction: true,
-                child: positiveText,
-                onPressed: () => Navigator.of(context).pop(true),
-              ),
               if (negativeText != null)
                 CupertinoDialogAction(
                   child: negativeText!,
                   onPressed: () => Navigator.of(context).pop(false),
                 ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: positiveText,
+                onPressed: () => Navigator.of(context).pop(true),
+              ),
             ],
           )
         : AlertDialog(
             title: title,
             content: description,
             actions: <TextButton>[
-              TextButton(
-                child: positiveText,
-                onPressed: () => Navigator.of(context).pop(true),
-              ),
               if (negativeText != null)
                 TextButton(
                   child: negativeText!,
                   onPressed: () => Navigator.of(context).pop(false),
                 ),
+              TextButton(
+                child: positiveText,
+                onPressed: () => Navigator.of(context).pop(true),
+              ),
             ],
           );
   }

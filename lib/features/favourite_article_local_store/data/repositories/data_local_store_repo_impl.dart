@@ -2,11 +2,11 @@ import 'dart:typed_data';
 
 import 'package:ch5_practical/core/db_const.dart';
 import 'package:ch5_practical/core/extensions.dart';
+import 'package:ch5_practical/core/models_and_entities/article_api_model.dart';
+import 'package:ch5_practical/core/models_and_entities/article_entity.dart';
 import 'package:ch5_practical/core/result_state_template.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/data/data_source/local_database_provider.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/domain/repositories/data_local_store_repository.dart';
-import 'package:ch5_practical/features/home_article_fetch/data/models/article_api_model.dart';
-import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
 import 'package:dio/dio.dart';
 import 'package:sqflite/sqflite.dart';
 

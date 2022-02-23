@@ -1,5 +1,6 @@
 import 'package:ch5_practical/core/extensions.dart';
 import 'package:ch5_practical/core/utilities.dart';
+import 'package:ch5_practical/core/widgets/platform_alert_dialog.dart';
 import 'package:flutter/material.dart';
 
 class AndroidTabBarPage extends StatelessWidget {
@@ -57,25 +58,6 @@ class AndroidTabBarPage extends StatelessWidget {
       );
   }
 
-  Future<void> _buildAlertDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('AlertDialog Title'),
-          content: const Text('Sample content of Android AlertDialog'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Okay!'),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   PersistentBottomSheetController<void> _buildBottomSheet(
       BuildContext context) {
     return showBottomSheet<void>(
@@ -111,7 +93,14 @@ class AndroidTabBarPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-          onPressed: () => _buildAlertDialog(context),
+          onPressed: () => showDialog<void>(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const PlatformAlertDialog(
+              showIOSDialog: false,
+              description: Text('Sample content of Android AlertDialog'),
+            ),
+          ),
           child: const Text('AlertDialog'),
         ),
         ElevatedButton(

@@ -1,4 +1,4 @@
-import 'package:ch5_practical/features/home_article_fetch/data/models/article_api_model.dart';
+import 'package:ch5_practical/core/models_and_entities/article_api_model.dart';
 
 class ApiResponse {
   final String status;

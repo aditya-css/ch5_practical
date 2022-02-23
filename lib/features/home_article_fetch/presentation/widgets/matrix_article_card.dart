@@ -1,8 +1,8 @@
 import 'dart:math' show Random;
 
+import 'package:ch5_practical/core/models_and_entities/article_entity.dart';
 import 'package:ch5_practical/core/utilities.dart';
-import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/safe_network_image_widget.dart';
+import 'package:ch5_practical/core/widgets/safe_network_image_widget.dart';
 import 'package:flutter/material.dart';
 
 class ArticlesMatrix extends StatelessWidget {
@@ -51,8 +51,8 @@ class ArticlesMatrix extends StatelessWidget {
               type: MaterialType.card,
               child: Column(
                 children: [
-                  SafeImageLoad(
-                    src: data[index].urlToImage,
+                  SafeNetworkImageLoad(
+                    imgSource: data[index].urlToImage,
                     width: imgWidth,
                     height: imgHeight,
                   ),

@@ -1,5 +1,5 @@
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/shimmer_widgets/shimmering_image_widget.dart';
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/shimmer_widgets/shimmering_text_widget.dart';
+import 'package:ch5_practical/core/widgets/shimmer_widgets/shimmering_image_widget.dart';
+import 'package:ch5_practical/core/widgets/shimmer_widgets/shimmering_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class NewsHorizontalLoading extends StatelessWidget {

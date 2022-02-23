@@ -1,5 +1,5 @@
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/shimmer_widgets/news_horizontal_loading.dart';
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/shimmer_widgets/news_vertical_loading.dart';
+import 'package:ch5_practical/core/widgets/shimmer_widgets/favourite_article_loading_widget.dart';
+import 'package:ch5_practical/core/widgets/shimmer_widgets/news_vertical_loading.dart';
 import 'package:flutter/material.dart';
 
 class ArticleLoadingShimmer extends StatelessWidget {
@@ -30,18 +30,10 @@ class ArticleLoadingShimmer extends StatelessWidget {
         if (!showHalf)
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                NewsHorizontalLoading(
-                  height: 140,
-                  width: MediaQuery.of(context).size.width * 0.4,
-                ),
-                const SizedBox(height: 16),
-                NewsHorizontalLoading(
-                  height: 140,
-                  width: MediaQuery.of(context).size.width * 0.4,
-                ),
-              ],
+            child: FavouritesLoadingShimmer(
+              articleCount: 4,
+              height: 140,
+              width: MediaQuery.of(context).size.width * 0.4,
             ),
           ),
       ],

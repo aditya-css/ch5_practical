@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:ch5_practical/core/db_const.dart';
 import 'package:ch5_practical/core/extensions.dart';
-import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
+import 'package:ch5_practical/core/models_and_entities/article_entity.dart';
 
 class ArticleApiModel extends Article {
   final int? aid;

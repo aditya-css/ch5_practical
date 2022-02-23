@@ -60,8 +60,7 @@ class HomeBarPage extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
                   onPressed: () =>
-                      Provider.of<BottomNavStore>(context, listen: false)
-                          .onItemTap(storeIndex),
+                      context.read<BottomNavStore>().onItemTap(storeIndex),
                   child: const Icon(CupertinoIcons.cart_fill),
                   tooltip: 'Store',
                 ),

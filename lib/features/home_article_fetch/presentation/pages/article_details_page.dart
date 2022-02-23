@@ -1,16 +1,15 @@
+import 'package:ch5_practical/core/models_and_entities/article_entity.dart';
 import 'package:ch5_practical/core/result_state_template.dart';
 import 'package:ch5_practical/core/routing/navigation_service.dart';
 import 'package:ch5_practical/core/utilities.dart';
-import 'package:ch5_practical/features/favourite_article_local_store/presentation/widgets/safe_memory_image_load.dart';
-import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
+import 'package:ch5_practical/core/widgets/error_card_widget.dart';
+import 'package:ch5_practical/core/widgets/no_network_widget.dart';
+import 'package:ch5_practical/core/widgets/safe_image_loader.dart';
+import 'package:ch5_practical/core/widgets/shimmer_widgets/article_loading_widget.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/mobx/data_fetch_store.dart';
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/error_card_widget.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/favourite_article_star.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/matrix_article_card.dart';
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/no_network_widget.dart';
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/safe_network_image_widget.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/section_header_widget.dart';
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/shimmer_widgets/article_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
@@ -38,8 +37,8 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
 
   @override
   void didChangeDependencies() async {
-    _articleFuture = Provider.of<DataFetchStore>(context).getArticles();
-    _hasNetwork = await Provider.of<DataFetchStore>(context).isConnected;
+    _articleFuture = context.watch<DataFetchStore>().getArticles();
+    _hasNetwork = await context.watch<DataFetchStore>().isConnected;
     super.didChangeDependencies();
   }
 
@@ -73,17 +72,12 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                   children: [
                     Hero(
                       tag: _tag,
-                      child: (_hasNetwork)
-                          ? SafeImageLoad(
-                              src: _articleData.urlToImage,
-                              height: 200,
-                              width: MediaQuery.of(context).size.width,
-                            )
-                          : SafeMemoryImageLoad(
-                              imageBytes: _articleData.imgBytes,
-                              height: 200,
-                              width: MediaQuery.of(context).size.width,
-                            ),
+                      child: SafeImageLoader(
+                        imageUrl: _articleData.urlToImage,
+                        imageSrcBytes: _articleData.imgBytes,
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -127,8 +121,10 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               ),
                             ],
                           ),
-                          Text(_articleData.content,
-                              overflow: TextOverflow.fade),
+                          Text(
+                            _articleData.content,
+                            overflow: TextOverflow.fade,
+                          ),
                           if (_hasNetwork)
                             FutureBuilder<ResultState>(
                               future: _articleFuture,
@@ -158,7 +154,8 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                     children: [
                                       const SectionHeader(
                                         padding: EdgeInsets.symmetric(
-                                            vertical: 16.0),
+                                          vertical: 16.0,
+                                        ),
                                         title: 'Similar Articles',
                                       ),
                                       SizedBox(
@@ -176,7 +173,8 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                   );
                                 }
                                 return const ArticleLoadingShimmer(
-                                    showHalf: true);
+                                  showHalf: true,
+                                );
                               },
                             ),
                           const SizedBox(height: 16),
