@@ -27,12 +27,14 @@ extension TimeAgo on String? {
     if (date == null) {
       return 'no date';
     }
+
     DateTime _formattedDate;
     try {
       _formattedDate = DateTime.parse(date.split('T')[0]);
     } on FormatException {
       return date;
     }
+
     Duration _diff = DateTime.now().difference(_formattedDate);
     if (_diff.inDays > 365) {
       return "${(_diff.inDays / 365).floor()} ${(_diff.inDays / 365).floor() == 1 ? "year" : "years"} ago";
