@@ -1,3 +1,4 @@
+
 import 'package:ch5_practical/core/result_state_template.dart';
 import 'package:ch5_practical/core/routing/navigation_service.dart';
 import 'package:ch5_practical/core/utilities.dart';
@@ -30,10 +31,11 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
   Article get _articleData => widget.data['data'];
 
   String get _tag => widget.data['tag'];
-
+  
   ApiException get _exception => (_articleFuture!.result as Failure).value;
 
   ObservableFuture<ResultState>? _articleFuture;
+
   bool _hasNetwork = true;
 
   @override

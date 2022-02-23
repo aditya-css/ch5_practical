@@ -26,7 +26,7 @@ class ArticleApiModel extends Article {
     required this.date,
   }) : super(
           id: aid,
-          source: src?['name'] ?? 'Unknown',
+          source: src['name'] ?? 'Unknown',
           author: writer ?? 'unknown',
           title: heading ?? 'No Title Found.',
           description: desc ?? 'No Description Found.',
