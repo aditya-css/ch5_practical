@@ -5,7 +5,7 @@ import 'package:ch5_practical/core/utilities.dart';
 import 'package:ch5_practical/core/widgets/error_card_widget.dart';
 import 'package:ch5_practical/core/widgets/no_network_widget.dart';
 import 'package:ch5_practical/core/widgets/safe_image_loader.dart';
-import 'package:ch5_practical/core/widgets/shimmer_widgets/article_loading_widget.dart';
+import 'package:ch5_practical/core/widgets/shimmer_widgets/article_detail_loading_shimmer.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/mobx/data_fetch_store.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/favourite_article_star.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/matrix_article_card.dart';
@@ -172,8 +172,14 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                     ],
                                   );
                                 }
-                                return const ArticleLoadingShimmer(
-                                  showHalf: true,
+
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 16.0),
+                                  child: ArticleDetailsLoadingShimmer(
+                                    height: 30,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                  ),
                                 );
                               },
                             ),

@@ -43,10 +43,13 @@ class FavouriteBarPage extends StatelessWidget {
                 if (state is Loading) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: FavouritesLoadingShimmer(
-                      articleCount: 4,
-                      height: 120,
-                      width: MediaQuery.of(context).size.width * 0.4,
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.8,
+                      child: FavouritesLoadingShimmer(
+                        articleCount: 4,
+                        height: 120,
+                        width: MediaQuery.of(context).size.width * 0.4,
+                      ),
                     ),
                   );
                 }
