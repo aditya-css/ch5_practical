@@ -1,7 +1,7 @@
 import 'package:ch5_practical/core/routing/custom_route_transition.dart';
 import 'package:ch5_practical/core/utilities.dart';
+import 'package:ch5_practical/core/widgets/error_card_widget.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/pages/article_details_page.dart';
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/error_card_widget.dart';
 import 'package:ch5_practical/home_page.dart';
 import 'package:flutter/material.dart';
 

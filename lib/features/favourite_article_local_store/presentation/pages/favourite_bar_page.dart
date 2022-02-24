@@ -1,14 +1,15 @@
-import 'dart:math';
+import 'dart:io';
+import 'dart:math' show Random;
 
-import 'package:ch5_practical/core/platform_alert_dialog.dart';
+import 'package:ch5_practical/core/models_and_entities/article_entity.dart';
 import 'package:ch5_practical/core/utilities.dart';
+import 'package:ch5_practical/core/widgets/article_horizontal_view.dart';
+import 'package:ch5_practical/core/widgets/error_card_widget.dart';
+import 'package:ch5_practical/core/widgets/platform_alert_dialog.dart';
+import 'package:ch5_practical/core/widgets/shimmer_widgets/favourite_article_loading_widget.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/presentation/bloc/db_bloc.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/presentation/bloc/db_bloc_event.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/presentation/bloc/db_bloc_state.dart';
-import 'package:ch5_practical/features/favourite_article_local_store/presentation/widgets/safe_memory_image_load.dart';
-import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/error_card_widget.dart';
-import 'package:ch5_practical/features/home_article_fetch/presentation/widgets/shimmer_widgets/news_horizontal_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,8 +32,9 @@ class FavouriteBarPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.07,
+            ),
             child: BlocBuilder<DatabaseBloc, DatabaseState>(
               builder: (_, DatabaseState state) {
                 if (state is Initial) {
@@ -41,10 +43,10 @@ class FavouriteBarPage extends StatelessWidget {
                 if (state is Loading) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ListView.separated(
-                      itemCount: 4,
-                      separatorBuilder: (_, __) => const SizedBox(height: 16.0),
-                      itemBuilder: (_, __) => NewsHorizontalLoading(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.8,
+                      child: FavouritesLoadingShimmer(
+                        articleCount: 4,
                         height: 120,
                         width: MediaQuery.of(context).size.width * 0.4,
                       ),
@@ -107,75 +109,23 @@ class FavouriteBarPage extends StatelessWidget {
                                 return showDialog<bool>(
                                   context: context,
                                   barrierDismissible: false,
-                                  builder: (_) => const PlatformAlertDialog(
-                                    title: Text('Remove Favourite Article'),
-                                    description: Text(
+                                  builder: (_) => PlatformAlertDialog(
+                                    showIOSDialog: Platform.isIOS,
+                                    title:
+                                        const Text('Remove Favourite Article'),
+                                    description: const Text(
                                       'Are you sure you want to remove this article?',
                                     ),
-                                    positiveText: Text('Yes'),
-                                    negativeText: Text('No'),
+                                    positiveText: const Text('Yes'),
+                                    negativeText: const Text('No'),
                                   ),
                                 );
                               },
-                              child: Material(
-                                type: MaterialType.card,
+                              child: ArticleViewHorizontal(
+                                state.data[index],
                                 elevation: 10,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SafeMemoryImageLoad(
-                                      imageBytes: state.data[index].imgBytes,
-                                      width: 130,
-                                      height: 130,
-                                    ),
-                                    const SizedBox(width: 16.0),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0,
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              state.data[index].title,
-                                              maxLines: 2,
-                                              softWrap: true,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline5
-                                                  ?.copyWith(fontSize: 18),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                vertical: 4.0,
-                                              ),
-                                              child: Text(
-                                                state.data[index].publishedAt,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .caption,
-                                              ),
-                                            ),
-                                            Text(
-                                              state.data[index].description,
-                                              maxLines: 2,
-                                              softWrap: true,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                color: Colors.grey.shade500,
-                                                fontSize: 15,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                imgHeight: 130,
+                                imgWidth: 130,
                               ),
                             ),
                           ),
@@ -208,13 +158,14 @@ class FavouriteBarPage extends StatelessWidget {
                   final bool? _shouldDelete = await showDialog<bool>(
                     context: context,
                     barrierDismissible: false,
-                    builder: (_) => const PlatformAlertDialog(
-                      title: Text('Remove Favourites'),
-                      description: Text(
+                    builder: (_) => PlatformAlertDialog(
+                      showIOSDialog: Platform.isIOS,
+                      title: const Text('Remove Favourites'),
+                      description: const Text(
                         'Are you sure you want to remove all the articles?',
                       ),
-                      positiveText: Text('Yes'),
-                      negativeText: Text('No'),
+                      positiveText: const Text('Yes'),
+                      negativeText: const Text('No'),
                     ),
                   );
                   if (_shouldDelete == true) {

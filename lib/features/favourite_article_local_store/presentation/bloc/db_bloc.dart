@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:ch5_practical/core/models_and_entities/article_entity.dart';
 import 'package:ch5_practical/core/result_state_template.dart';
 import 'package:ch5_practical/core/usecase_template.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/delete_all_fav_article_usecase.dart';
@@ -8,7 +9,6 @@ import 'package:ch5_practical/features/favourite_article_local_store/domain/usec
 import 'package:ch5_practical/features/favourite_article_local_store/domain/usecases/remove_fav_article_usecase.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/presentation/bloc/db_bloc_event.dart';
 import 'package:ch5_practical/features/favourite_article_local_store/presentation/bloc/db_bloc_state.dart';
-import 'package:ch5_practical/features/home_article_fetch/domain/entities/article_entity.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/bloc/star_bloc.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/bloc/star_bloc_state.dart';
 
