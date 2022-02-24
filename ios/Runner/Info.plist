@@ -43,5 +43,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>UIRequiredDeviceCapabilities</key>
+    <string>location-services</string>
+    <key>NSLocationUsageDescription</key>
+    <string>This app requests you to allow access to your location.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app requests you to always allow access to your location.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app requests you to allow access to your location while the app is in use.</string>
 </dict>
 </plist>

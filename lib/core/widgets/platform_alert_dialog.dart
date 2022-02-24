@@ -9,11 +9,14 @@ class PlatformAlertDialog extends StatelessWidget {
     required this.description,
     this.positiveText = const Text('Okay!'),
     this.negativeText,
+    this.action,
   }) : super(key: key);
 
-  final Text title, description, positiveText;
+  final VoidCallback? action;
   final Text? negativeText;
   final bool showIOSDialog;
+  final Text title, description, positiveText;
+
   @override
   Widget build(BuildContext context) {
     return (showIOSDialog)
@@ -29,7 +32,12 @@ class PlatformAlertDialog extends StatelessWidget {
               CupertinoDialogAction(
                 isDefaultAction: true,
                 child: positiveText,
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () {
+                  if (action != null) {
+                    action!();
+                  }
+                  Navigator.of(context).pop(true);
+                },
               ),
             ],
           )
@@ -44,7 +52,12 @@ class PlatformAlertDialog extends StatelessWidget {
                 ),
               TextButton(
                 child: positiveText,
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () {
+                  if (action != null) {
+                    action!();
+                  }
+                  Navigator.of(context).pop(true);
+                },
               ),
             ],
           );
