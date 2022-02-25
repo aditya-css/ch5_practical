@@ -46,10 +46,10 @@
 	<key>UIRequiredDeviceCapabilities</key>
     <string>location-services</string>
     <key>NSLocationUsageDescription</key>
-    <string>This app requests you to allow access to your location.</string>
+    <string>Location is required to fetch news articles as per your country.</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>This app requests you to always allow access to your location.</string>
+    <string>Location is required to fetch news articles as per your country.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app requests you to allow access to your location while the app is in use.</string>
+    <string>Location is required to fetch news articles as per your country.</string>
 </dict>
 </plist>
