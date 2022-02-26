@@ -1,3 +1,4 @@
+import 'package:ch5_practical/core/utilities.dart';
 import 'package:mobx/mobx.dart';
 
 part 'bottom_nav_index_store.g.dart';
@@ -6,7 +7,7 @@ class BottomNavStore = _BottomNavStore with _$BottomNavStore;
 
 abstract class _BottomNavStore with Store {
   @readonly
-  int _index = 0;
+  int _index = homeIndex;
 
   @action
   void onItemTap(int newIndex) => _index = newIndex;

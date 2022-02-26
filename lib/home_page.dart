@@ -3,6 +3,7 @@ import 'package:ch5_practical/features/home_article_fetch/presentation/mobx/bott
 import 'package:ch5_practical/features/home_article_fetch/presentation/pages/home_bar_page.dart';
 import 'package:ch5_practical/features/settings_app_permission/presentation/pages/settings_bar_page.dart';
 import 'package:ch5_practical/features/store_platform_widgets/presentation/pages/store_bar_page.dart';
+import 'package:ch5_practical/features/world_animation/presentation/pages/world_animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -18,6 +19,7 @@ class MyHomePage extends StatelessWidget {
     StoreBarPage(),
     FavouriteBarPage(),
     SettingsBarPage(),
+    WorldBarPage(),
   ];
 
   final List<BottomNavigationBarItem> _bottomNavBarItems =
@@ -29,6 +31,7 @@ class MyHomePage extends StatelessWidget {
         icon: Icon(CupertinoIcons.star_fill), label: 'Favourite'),
     BottomNavigationBarItem(
         icon: Icon(CupertinoIcons.gear_alt_fill), label: 'Settings'),
+    BottomNavigationBarItem(icon: Icon(CupertinoIcons.globe), label: 'World'),
   ];
 
   @override

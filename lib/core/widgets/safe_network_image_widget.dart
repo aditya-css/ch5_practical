@@ -1,7 +1,7 @@
 import 'package:ch5_practical/core/widgets/error_card_widget.dart';
 import 'package:ch5_practical/core/widgets/no_image_found_widget.dart';
-import 'package:ch5_practical/core/widgets/shimmer_widgets/shimmering_image_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class SafeNetworkImageLoad extends StatelessWidget {
   const SafeNetworkImageLoad({
@@ -22,21 +22,25 @@ class SafeNetworkImageLoad extends StatelessWidget {
             width: width,
             child: const NoImageFound(),
           )
-        : Image.network(
-            imgSource!,
-            fit: BoxFit.cover,
-            width: width,
+        : FadeInImage.memoryNetwork(
+            placeholder: kTransparentImage,
+            image: imgSource!,
             height: height,
-            loadingBuilder: (_, Widget child, ImageChunkEvent? progress) {
-              if (progress == null) return child;
-              return ImageShimmer(height: height, width: width);
-            },
-            errorBuilder: (_, __, ___) {
+            width: width,
+            fit: BoxFit.cover,
+            imageErrorBuilder: (_, __, ___) {
               return Container(
                 width: width,
                 height: height,
                 color: Theme.of(context).colorScheme.error,
                 child: const ErrorCard(),
+              );
+            },
+            placeholderErrorBuilder: (_, __, ___) {
+              return SizedBox(
+                height: height,
+                width: width,
+                child: const NoImageFound(),
               );
             },
           );
