@@ -53,3 +53,8 @@ Dribbble: (https://dribbble.com/shots/7119496-Welcome-Screen-mobile-app-concep)
 # Ch11 Practical
 ## UI
 ![user_permission](https://github.com/aditya-css/ch5_practical/blob/feature/user_permissions/build%20showcase/p11.gif)
+
+# Ch12 Practical
+## UI
+![fade_in_image](https://github.com/aditya-css/ch5_practical/blob/feature/animation/build%20showcase/fadein.gif) ![space](https://github.com/aditya-css/ch5_practical/blob/feature/animation/build%20showcase/space.gif)
+
