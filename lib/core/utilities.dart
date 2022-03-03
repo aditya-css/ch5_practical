@@ -17,6 +17,7 @@ import 'package:ch5_practical/features/home_article_fetch/presentation/bloc/star
 import 'package:ch5_practical/features/home_article_fetch/presentation/mobx/bottom_nav_index_store.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/mobx/data_fetch_store.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/pages/article_details_page.dart';
+import 'package:ch5_practical/features/settings_app_permission/presentation/mobx/switch_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -60,6 +61,9 @@ final List<SingleChildWidget> providersList = <SingleChildWidget>[
     create: (_) => DataLocalStoreRepositoryImpl(
       LocalDatabaseProvider.dbProvider,
     ),
+  ),
+  Provider<SwitchStore>(
+    create: (_) => SwitchStore(),
   ),
   ProxyProvider<DataFetchRepository, DataFetchStore>(
     update: (_, dataFetchRepo, ___) => DataFetchStore(

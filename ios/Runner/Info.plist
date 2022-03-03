@@ -43,5 +43,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>UIRequiredDeviceCapabilities</key>
+    <string>location-services</string>
+    <key>NSLocationUsageDescription</key>
+    <string>Location is required to fetch news articles as per your country.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Location is required to fetch news articles as per your country.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Location is required to fetch news articles as per your country.</string>
 </dict>
 </plist>

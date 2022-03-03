@@ -41,12 +41,15 @@ Dribbble: (https://dribbble.com/shots/7119496-Welcome-Screen-mobile-app-concep)
 
 # Ch9 Practical
 ## UI
-![article_fetch](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/p9.gif)
+![state_management](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/p9.gif)
 
 # Ch10 Practical
 ## UI
-![article_fetch](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/p10.gif)
+![favourite_persist](https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/p10.gif)
 
 <img alt="no_favs" src="https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/no_favs.png" height=600 width=250/> <img alt="slide_delete" src="https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/slide_delete.png" height=600 width=250/> 
 <img alt="remove_confirm" src="https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/remove_confirm.png" height=600 width=250/> <img alt="delete_confirm" src="https://github.com/aditya-css/ch5_practical/blob/develop/build%20showcase/delete_confirm.png" height=600 width=250/> 
 
+# Ch11 Practical
+## UI
+![user_permission](https://github.com/aditya-css/ch5_practical/blob/feature/user_permissions/build%20showcase/p11.gif)
