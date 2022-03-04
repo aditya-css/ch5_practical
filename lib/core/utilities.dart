@@ -101,31 +101,17 @@ final List<SingleChildWidget> providersList = <SingleChildWidget>[
 ];
 
 //Getters
-int get homeIndex => 0;
+const int homeIndex = 0;
 
-int get storeIndex => 1;
+const int storeIndex = 1;
 
-int get favouriteIndex => 2;
+const int favouriteIndex = 2;
 
-int get settingsIndex => 3;
+const int settingsIndex = 3;
 
-int get worldIndex => 4;
+const int worldIndex = 4;
 
-String get title => 'Best Folk Medicine';
-
-String get categoryJsonSrc => 'assets/dummy_data/categories.json';
-
-String get noWifiImageSrc => 'assets/images/no_wifi.png';
-
-String get cartoonSrc => 'assets/images/zoey.png';
-
-String get cartoonHandSrc => 'assets/images/zoey hand.png';
-
-String get starsBackgroundSrc => 'assets/images/stars.jpeg';
-
-String get earthSrc => 'assets/images/earth.png';
-
-String get moonSrc => 'assets/images/moon.png';
+const String title = 'Best Folk Medicine';
 
 //Enum
 enum SampleDialogOptions { option1, option2 }

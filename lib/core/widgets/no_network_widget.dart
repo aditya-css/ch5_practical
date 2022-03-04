@@ -1,4 +1,4 @@
-import 'package:ch5_practical/core/utilities.dart';
+import 'package:ch5_practical/core/image_paths.dart';
 import 'package:flutter/material.dart';
 
 class NoInternet extends StatelessWidget {
@@ -15,7 +15,7 @@ class NoInternet extends StatelessWidget {
             maxWidth: 150,
           ),
           child: Image.asset(
-            noWifiImageSrc,
+            ImagePath.noWifiImageSrc,
             fit: BoxFit.contain,
           ),
         ),

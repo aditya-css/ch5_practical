@@ -1,3 +1,4 @@
+import 'package:ch5_practical/core/image_paths.dart';
 import 'package:ch5_practical/core/utilities.dart';
 import 'package:ch5_practical/features/home_article_fetch/presentation/mobx/bottom_nav_index_store.dart';
 import 'package:flutter/material.dart';
@@ -55,8 +56,8 @@ class _WorldBarPageState extends State<WorldBarPage>
               width: (store.index == worldIndex) ? _size.width : _widthSmall,
               decoration: BoxDecoration(
                 color: Colors.blueGrey.shade900,
-                image: DecorationImage(
-                  image: AssetImage(starsBackgroundSrc),
+                image: const DecorationImage(
+                  image: AssetImage(ImagePath.starsBackgroundSrc),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(
@@ -97,7 +98,7 @@ class _WorldBarPageState extends State<WorldBarPage>
                       child: RotationTransition(
                         turns: _controller,
                         child: Image.asset(
-                          moonSrc,
+                          ImagePath.moonSrc,
                           height: _size.height * 0.4,
                           width: _size.width * 0.7,
                           fit: BoxFit.contain,
