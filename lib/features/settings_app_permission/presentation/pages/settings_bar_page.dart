@@ -52,7 +52,7 @@ class _SettingsBarPageState extends State<SettingsBarPage> {
                 Observer(
                   builder: (_) => Switch.adaptive(
                     activeColor: Colors.black,
-                    value: context.watch<SwitchStore>().switchStateValue,
+                    value: context.watch<SwitchStore>().locationSwitchState,
                     onChanged: (value) async {
                       PermissionStatus? _permissionStatus = await context
                           .read<SwitchStore>()
