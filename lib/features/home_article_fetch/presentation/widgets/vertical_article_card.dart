@@ -51,26 +51,29 @@ class ArticlesVertical extends StatelessWidget {
                       width: imgWidth,
                       height: imgHeight,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            data[index].source,
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                          Text(
-                            data[index].publishedAt,
-                            style: TextStyle(
-                              color: Colors.grey.shade500,
-                              fontSize: 14,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              data[index].source,
+                              style: const TextStyle(fontSize: 14),
                             ),
-                          ),
-                        ],
+                            Text(
+                              data[index].publishedAt,
+                              style: TextStyle(
+                                color: Colors.grey.shade500,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
+                      flex: 3,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(

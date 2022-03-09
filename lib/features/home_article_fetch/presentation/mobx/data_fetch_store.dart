@@ -1,6 +1,6 @@
+import 'package:ch5_practical/core/image_paths.dart';
 import 'package:ch5_practical/core/result_state_template.dart';
 import 'package:ch5_practical/core/usecase_template.dart';
-import 'package:ch5_practical/core/utilities.dart';
 import 'package:ch5_practical/features/home_article_fetch/domain/usecases/article_fetch_usecase.dart';
 import 'package:ch5_practical/features/home_article_fetch/domain/usecases/category_fetch_usecase.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -33,7 +33,7 @@ abstract class _DataFetchStore with Store {
   ObservableFuture<ResultState> getCategories() =>
       ObservableFuture<ResultState>(
         _fetchCategories(
-          Params(categoryJsonSrc),
+          const Params(ImagePath.categoryJsonSrc),
         ),
       );
 }
